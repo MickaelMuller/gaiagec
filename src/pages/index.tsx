@@ -1,5 +1,8 @@
+import { GetServerSideProps } from 'next';
 import { Inter } from 'next/font/google';
 import Image from 'next/image';
+
+import URLS from '@/lib/utils/constants/urls';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -116,3 +119,7 @@ export default function Home() {
     </main>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => ({
+  redirect: { destination: URLS.LOGIN, permanent: false },
+});

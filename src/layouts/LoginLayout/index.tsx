@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
+import { useTranslation } from 'next-i18next';
 
 import Text from '@/components/ui/text';
 
 const LoginLayout = ({ children }: { children: ReactNode }) => {
-  const t = (toto: string) => toto;
+  const { t } = useTranslation();
 
   return (
     <div className="flex">

@@ -1,9 +1,24 @@
 {
-  "meta": {
-    "title": "Common"
+  "gaiagec": "Gaiagec",
+  "test": "YOOOOO",
+  "gaiagec_explanations": "Chez Gaia Solutions, nous croyons fermement à la Responsabilité Sociale des Entreprises et nous sommes à l'avant-garde des défis posés par la loi AGEC. C’est pourquoi nous avons conçu Gaiagec.",
+  "login": {
+    "metadata": {
+      "title": "Gaiagec - Connexion",
+      "description": "Connexion page"
+    },
+    "welcome_gaiagec": "Bienvenue sur Gaiagec",
+    "forget_password": "Mot de passe oublié ?"
   },
-  "error": {
-    "server": "Une erreur serveur est survenue, veuillez réessayer"
-  }, 
-  "test": "TestZZZZZ"
+  "register": {
+    "metadata": {
+      "title": "Gaiagec - Inscription",
+      "description": "Inscription page"
+    }
+  },
+  "form": {
+    "email": "Email",
+    "password": "Mot de passe",
+    "login": "Connexion"
+  }
 }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { RefreshTokenProps, RefreshTokenResponse } from '../types/refreshToken';
+import { RefreshTokenProps, RefreshTokenResponse } from '../../types/refreshToken';
 
 const refreshToken = async ({
   refreshToken,

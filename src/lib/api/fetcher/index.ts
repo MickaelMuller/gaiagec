@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { GetServerSidePropsContext } from 'next';
-import baseAxios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import baseAxios, { AxiosInstance, AxiosRequestConfig, HeadersDefaults } from 'axios';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 
+import { RefreshTokenResult } from '@/types/refreshToken';
 import { COOKIES } from '@/lib/utils/constants/cookies';
 import { MINUTES, SECONDS } from '@/lib/utils/time';
 
@@ -13,10 +12,10 @@ import refreshTokenRequest from './refreshToken';
 type FetcherProps = AxiosRequestConfig & {
   req?: GetServerSidePropsContext['req'];
   res?: GetServerSidePropsContext['res'];
-  headers?: any;
+  headers?: HeadersDefaults;
 };
 
-let refreshTokenFunction: any;
+let refreshTokenFunction: Promise<RefreshTokenResult> | undefined;
 
 const getUrl = (req?: GetServerSidePropsContext['req']): string => {
   if (req) {
@@ -26,11 +25,6 @@ const getUrl = (req?: GetServerSidePropsContext['req']): string => {
   return window.location.href;
 };
 
-/**
- * Call API wish a configuration object.
- * @param {AxiosRequestConfig} config - Configuration Axios.
- * @returns {Promise}
- */
 const axios = async (config?: FetcherProps): Promise<AxiosInstance> => {
   const req = config?.req;
   const res = config?.res;
@@ -41,9 +35,9 @@ const axios = async (config?: FetcherProps): Promise<AxiosInstance> => {
 
   const headers = {
     'Content-Type': 'application/json',
-    ...(token && { Authorization: `Bearer ${token}` }),
     'Referer': getUrl(req),
     'Origin': `next_app_${process.env.NODE_ENV}`,
+    ...(token && { Authorization: `Bearer ${token}` }),
     ...config?.headers,
   };
 
@@ -70,11 +64,13 @@ const axios = async (config?: FetcherProps): Promise<AxiosInstance> => {
         try {
           if (!refreshTokenFunction)
             refreshTokenFunction = refreshTokenRequest({ refreshToken, token });
-          const { newToken, newRefreshToken } = await refreshTokenFunction;
+          const refreshTokenResponse = await refreshTokenFunction;
 
-          if (!newToken || !newRefreshToken) {
+          if (!refreshTokenResponse?.newToken || !refreshTokenResponse?.newRefreshToken) {
             throw new Error('No token or refresh token');
           }
+
+          const { newToken, newRefreshToken } = refreshTokenResponse;
 
           setCookie(COOKIES.GAIAGEC_TOKEN, newToken, {
             req,

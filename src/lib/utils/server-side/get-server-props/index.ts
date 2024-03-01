@@ -6,7 +6,7 @@ import { REACT_QUERY_DEFAULT_CONFIG } from '../../constants/react-query-default-
 
 type PageQuery = {
   queryKey: [string, string?];
-  queryFn: () => Promise<any>;
+  queryFn: () => void;
 };
 
 type GetServerProps = {
@@ -15,19 +15,12 @@ type GetServerProps = {
   queries?: PageQuery[];
 };
 
-/**
- * Commons props to fetch in getServerSideProps function
- * Must be included in all pages
- *
- * @param {Object}
- * @returns {Promise}
- */
 export const getServerProps = async ({
   context,
   namespaces = [],
   queries = [],
 }: GetServerProps) => {
-  const commonNamespaces = ['common', 'inputs', 'stock', 'timezones'];
+  const commonNamespaces = ['common'];
   const allNamespaces = [...commonNamespaces, ...namespaces];
 
   const queryClient = new QueryClient(REACT_QUERY_DEFAULT_CONFIG);

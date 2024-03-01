@@ -19,7 +19,7 @@ import Text from '@/components/ui/text';
 const LoginPage = () => {
   const { push } = useRouter();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
 
   const form = useForm<z.infer<typeof loginShema>>({
     resolver: zodResolver(loginShema),
@@ -43,7 +43,7 @@ const LoginPage = () => {
     <LoginLayout>
       <div className="flex w-2/3 flex-col items-center justify-center">
         <Text font="grapeNuts" size="4xl" bold="extra" className="mb-8 text-primary">
-          {t('welcome_gaiagec')}
+          {t('login.welcome_gaiagec')}
         </Text>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
@@ -53,7 +53,7 @@ const LoginPage = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={'login'} {...field} />
+                    <Input placeholder={t('form.email')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -65,7 +65,7 @@ const LoginPage = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder={'password'} {...field} />
+                    <Input type="password" placeholder={t('form.password')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -75,9 +75,9 @@ const LoginPage = () => {
               {t('form.login')}
             </Button>
           </form>
-          <Link className="w-full text-end" href={'/toto'}>
+          <Link className="w-full text-end" href={URLS.FORGET_PASSWORD}>
             <Text size="sm" className="text-primary">
-              {t('common.forget_password')}
+              {t('login.forget_password')}
             </Text>
           </Link>
         </Form>
@@ -88,7 +88,6 @@ const LoginPage = () => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const namespaces = ['common'];
-
   const { serverProps } = await getServerProps({ context, namespaces });
 
   return {

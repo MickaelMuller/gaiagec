@@ -3,6 +3,7 @@ const URLS = {
   LOGIN: '/connexion',
   REGISTER: '/inscription',
   CHANGE_PASSWORD: '/changer-mot-de-passe',
+  FORGET_PASSWORD: '/mot-de-passe-oublie',
   DASHBOARD: '/dashboard',
   PRODUCTS: '/produits',
   PACKAGING: '/emballages',

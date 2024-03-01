@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import GetRequest from '../types/getRequest';
-import { KpisDashboard } from '../types/kpisDashboard';
-import { UseQueryOptions } from '../types/useQueryOptions';
+import GetRequest from '../../types/getRequest';
+import { KpisDashboard } from '../../types/kpisDashboard';
+import { UseQueryOptions } from '../../types/useQueryOptions';
 import QUERY_KEYS from '../utils/constants/query-keys';
 import getQueryKey from '../utils/get-query-key';
 import axios from './fetcher';

@@ -1,23 +1,11 @@
 import axios from 'axios';
 
-type RefreshTokenProps = {
-  refreshToken: string | undefined;
-  token: string | undefined;
-};
-
-type RefreshTokenResponse = {
-  newToken: string;
-  newRefreshToken: string;
-};
-
-type RefreshTokenError = any;
-
-type RefreshTokenResult = RefreshTokenError | RefreshTokenResponse;
+import { RefreshTokenParams, RefreshTokenResult } from '@/types/refreshToken';
 
 const refreshTokenRequest = async ({
   refreshToken,
   token,
-}: RefreshTokenProps): Promise<RefreshTokenResult> => {
+}: RefreshTokenParams): Promise<RefreshTokenResult> => {
   try {
     const response = await axios({
       method: 'POST',
@@ -33,7 +21,7 @@ const refreshTokenRequest = async ({
 
     return { newToken, newRefreshToken };
   } catch (error) {
-    return error;
+    return undefined;
   }
 };
 
