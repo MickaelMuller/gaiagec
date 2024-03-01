@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
+import GetRequest from '../../types/api/getRequest';
 import { Brands } from '../../types/brands';
-import GetRequest from '../../types/getRequest';
-import { UseQueryOptions } from '../../types/useQueryOptions';
+import { UseQueryOptions } from '../../types/utils/useQueryOptions';
 import QUERY_KEYS from '../utils/constants/query-keys';
 import getQueryKey from '../utils/get-query-key';
 import axios from './fetcher';

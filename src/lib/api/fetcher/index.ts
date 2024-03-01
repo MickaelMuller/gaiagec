@@ -3,7 +3,7 @@ import baseAxios, { AxiosInstance, AxiosRequestConfig, HeadersDefaults } from 'a
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 
-import { RefreshTokenResult } from '@/types/refreshToken';
+import { RefreshTokenResult } from '@/types/api/refreshToken';
 import { COOKIES } from '@/lib/utils/constants/cookies';
 import { MINUTES, SECONDS } from '@/lib/utils/time';
 
