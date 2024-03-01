@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-import { RefreshTokenProps, RefreshTokenResponse } from '../../types/refreshToken';
+import { RefreshTokenParams, RefreshTokenResponse } from '../../types/refreshToken';
 
 const refreshToken = async ({
   refreshToken,
   token,
-}: RefreshTokenProps): Promise<RefreshTokenResponse> => {
+}: RefreshTokenParams): Promise<RefreshTokenResponse> => {
   const response = await axios({
     method: 'POST',
     url: `${process.env.NEXT_PUBLIC_API_URL}/authentication/refresh`,
