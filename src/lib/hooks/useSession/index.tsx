@@ -1,30 +1,24 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
+import { deleteCookie, getCookie } from 'cookies-next';
 import jwtDecode from 'jwt-decode';
 
+import { Session } from '@/types/session';
 import { COOKIES } from '@/lib/utils/constants/cookies';
+import URLS from '@/lib/utils/constants/urls';
 
-type Session = {
-  sub?: string;
-  jti?: string;
-  iat?: number;
-  exp?: number;
-  userId?: string;
-  userName?: string;
-  email?: string;
-  tenantId?: string;
-  tenantName?: string;
-  firstName?: string;
-  lastName?: string;
-  iss?: string;
-  aud?: string;
+type UseSessionProps = {
+  session: Session;
+  logout: () => void;
 };
 
-const useSession = (): Session | undefined => {
+const useSession = (): UseSessionProps => {
   const token = getCookie(COOKIES.GAIAGEC_TOKEN);
   const [session, setSession] = useState<Session>({});
+
+  const { push } = useRouter();
 
   useEffect(() => {
     if (token) {
@@ -34,7 +28,13 @@ const useSession = (): Session | undefined => {
     }
   }, [token]);
 
-  return session;
+  const logout = () => {
+    deleteCookie(COOKIES.GAIAGEC_TOKEN);
+    deleteCookie(COOKIES.GAIAGEC_REFRESH_TOKEN);
+    push(URLS.LOGIN);
+  };
+
+  return { session, logout };
 };
 
 export default useSession;

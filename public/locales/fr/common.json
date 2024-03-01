@@ -2,6 +2,10 @@
   "gaiagec": "Gaiagec",
   "test": "YOOOOO",
   "gaiagec_explanations": "Chez Gaia Solutions, nous croyons fermement à la Responsabilité Sociale des Entreprises et nous sommes à l'avant-garde des défis posés par la loi AGEC. C’est pourquoi nous avons conçu Gaiagec.",
+  "navbar": {
+    "switch_brand" : "Changer de marque", 
+    "logout": "Déconnexion"
+  },
   "login": {
     "metadata": {
       "title": "Gaiagec - Connexion",

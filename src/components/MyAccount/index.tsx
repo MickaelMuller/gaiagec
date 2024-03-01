@@ -1,18 +1,61 @@
+import { User } from 'lucide-react';
+import { useTranslation } from 'next-i18next';
+
 import useGetBrands from '@/lib/api/useGetBrands';
 import useSession from '@/lib/hooks/useSession';
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu';
 import Text from '../ui/text';
 
 const MyAccount = () => {
-  const session = useSession();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { session, logout } = useSession();
   const { data: brands } = useGetBrands();
 
+  const { t } = useTranslation('common');
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
-    <div className="mr-5 self-center">
-      <Text>
-        {session?.firstName} {session?.lastName} -
-      </Text>
+    <div className="mr-5 flex self-center">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <div className="flex cursor-pointer self-center">
+            <User className="mr-2" color="white" />
+            <Text className="text-white">
+              {`${session?.firstName} ${session?.lastName}`} -{' '}
+              <Text font="hind" is="span">
+                {brands?.[0].name}
+              </Text>
+            </Text>
+          </div>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>{t('navbar.switch_brand')}</DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                {brands?.map((brand) => (
+                  <DropdownMenuItem key={brand.id}>{brand.name}</DropdownMenuItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={handleLogout}>{t('navbar.logout')}</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 };

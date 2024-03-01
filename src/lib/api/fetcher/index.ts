@@ -17,14 +17,6 @@ type FetcherProps = AxiosRequestConfig & {
 
 let refreshTokenFunction: Promise<RefreshTokenResult> | undefined;
 
-const getUrl = (req?: GetServerSidePropsContext['req']): string => {
-  if (req) {
-    return req?.headers?.referer as string;
-  }
-
-  return window.location.href;
-};
-
 const axios = async (config?: FetcherProps): Promise<AxiosInstance> => {
   const req = config?.req;
   const res = config?.res;
@@ -35,8 +27,6 @@ const axios = async (config?: FetcherProps): Promise<AxiosInstance> => {
 
   const headers = {
     'Content-Type': 'application/json',
-    'Referer': getUrl(req),
-    'Origin': `next_app_${process.env.NODE_ENV}`,
     ...(token && { Authorization: `Bearer ${token}` }),
     ...config?.headers,
   };

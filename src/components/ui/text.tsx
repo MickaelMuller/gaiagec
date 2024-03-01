@@ -41,7 +41,7 @@ const textVariant = cva('', {
 export interface TextProps extends VariantProps<typeof textVariant> {
   children: React.ReactNode;
   className?: string;
-  is?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span';
+  is?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span' | 'div';
 }
 
 const Text = ({ children, font, size, bold, className = '', is = 'p' }: TextProps) => {
