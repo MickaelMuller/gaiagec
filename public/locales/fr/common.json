@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "title": "Common"
+  },
+  "error": {
+    "server": "Une erreur serveur est survenue, veuillez réessayer"
+  }, 
+  "test": "TestZZZZZ"
+}
