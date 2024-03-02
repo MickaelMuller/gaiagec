@@ -3,6 +3,7 @@ import LayoutMenu from '@/layouts/MenuLayout';
 import { Check } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 
+import { DataItem } from '@/types/dashboardPie';
 import useGetCertificatesStatus, {
   getCertificatesDistribution,
 } from '@/lib/api/useGetCertificatesDistribution';
@@ -11,16 +12,35 @@ import QUERY_KEYS from '@/lib/utils/constants/query-keys';
 import getQueryKey from '@/lib/utils/get-query-key';
 import kpisIcons from '@/lib/utils/kpisIcons';
 import { getServerProps } from '@/lib/utils/server-side/get-server-props';
+import Text from '@/components/ui/text';
+import DashboardPieChart from '@/components/Dashboard/DashboardPieChart';
 import Kpis from '@/components/Kpis';
 import PageHeader from '@/components/PageHeader';
+
+const getGraphColor = (status: string) => {
+  switch (status) {
+    case 'valid':
+      return 'hsl(133, 53%, 48%)';
+    case 'expired':
+      return 'hsl(0, 71%, 48%)';
+    case 'expireSoon':
+      return 'hsl(35, 97%, 64%)';
+    default:
+      return 'hsl(133, 53%, 48%)';
+  }
+};
 
 const Dashboard = () => {
   const { data: kpis } = useGetKpisDashboard();
   const { data: certificatesDistribution } = useGetCertificatesStatus();
   const { t } = useTranslation();
 
-  // eslint-disable-next-line no-console
-  console.log('certificatesDistribution', certificatesDistribution?.total);
+  const formatedDataPie = certificatesDistribution?.distribution.map((item) => ({
+    id: t(`kpis.${item.status}`),
+    label: t(`kpis.${item.status}`),
+    value: item.percentage,
+    color: getGraphColor(item.status),
+  }));
 
   return (
     <LayoutMenu className="flex flex-col gap-12">
@@ -37,6 +57,20 @@ const Dashboard = () => {
             return <Kpis key={t(kpi.key)} data={kpi} icon={icon} color={color} />;
           }
         })}
+      </div>
+
+      <div className="flex flex-col gap-16 lg:flex-row">
+        <div className="h-96 basis-2/3 rounded-md border p-4 shadow-lg">
+          <Text className="text-center" is="h3" size="xl">
+            {t('dashboard.chart.title')}
+          </Text>
+          <DashboardPieChart data={formatedDataPie as DataItem[]} />
+        </div>
+        <div className="basis-1/3 rounded-md border p-4 shadow-lg">
+          <Text className="text-center" is="h3" size="xl">
+            {t('dashboard.certificates_table.title')}
+          </Text>
+        </div>
       </div>
     </LayoutMenu>
   );

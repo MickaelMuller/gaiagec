@@ -13,7 +13,7 @@ export const getCertificatesDistribution = async ({
   res,
 }: GetRequest = {}): Promise<CertificatesDistribution> => {
   const axiosInstance = await axios({ req, res });
-  const { data } = await axiosInstance.get('/certificates/status');
+  const { data } = await axiosInstance.get('/certificates/distribution');
 
   return data;
 };

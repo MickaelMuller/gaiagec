@@ -31,7 +31,6 @@ const Kpi = ({ data, icon: Icon, color }: KpisProps) => {
             'text-green-500': color === 'green',
           })}
           size="xl"
-          font="poppins"
         >
           {translatedKey}
         </Text>

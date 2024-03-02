@@ -1,9 +1,11 @@
 import type { GetServerSidePropsContext } from 'next';
 import { dehydrate, QueryClient } from '@tanstack/react-query';
+import { hasCookie } from 'cookies-next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { getBrands } from '@/lib/api/useGetBrands';
 
+import { COOKIES } from '../../constants/cookies';
 import QUERY_KEYS from '../../constants/query-keys';
 import { REACT_QUERY_DEFAULT_CONFIG } from '../../constants/react-query-default-config';
 import getQueryKey from '../../get-query-key';
@@ -29,12 +31,18 @@ export const getServerProps = async ({
 
   const queryClient = new QueryClient(REACT_QUERY_DEFAULT_CONFIG);
 
-  const defaultQueries: PageQuery[] = [
-    {
-      queryKey: getQueryKey(QUERY_KEYS.BRANDS),
-      queryFn: () => getBrands({ req: context.req, res: context.res }),
-    },
-  ];
+  const hasUserTokens =
+    !!hasCookie(COOKIES.GAIAGEC_TOKEN, { req: context.req }) &&
+    !!hasCookie(COOKIES.GAIAGEC_REFRESH_TOKEN, { req: context.req });
+
+  const defaultQueries: PageQuery[] = hasUserTokens
+    ? [
+        {
+          queryKey: getQueryKey(QUERY_KEYS.BRANDS),
+          queryFn: () => getBrands({ req: context.req, res: context.res }),
+        },
+      ]
+    : [];
 
   const promises = await Promise.all(
     ([...queries, ...defaultQueries] as PageQuery[]).map(({ queryKey, queryFn }) =>

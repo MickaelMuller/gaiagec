@@ -11,7 +11,16 @@
       "title": "Gaiagec - Tableau de bord",
       "description": "Tableau de bord page"
     },
-    "title": "Tableau de bord"
+    "title": "Tableau de bord", 
+    "chart": {
+      "title": "Status des certificats", 
+      "table": {
+        "title": "title"
+      }
+    },
+    "certificates_table": {
+      "title": "Détails des certificats"
+    }
   },
   "login": {
     "metadata": {
@@ -36,6 +45,9 @@
     "productsTotal": "Produits en ligne",
     "expiredCertificates": "Certificats expirés",
     "visitsTotal": "Nombre de scans",
-    "suppliersTotal": "Fournisseurs actifs"
+    "suppliersTotal": "Fournisseurs actifs",
+    "valid": "Conforme",
+    "expired": "Expiré", 
+    "expireSoon": "< 3 mois"
   }
 }
