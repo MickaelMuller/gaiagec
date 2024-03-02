@@ -4,7 +4,7 @@ type IconMap = Record<string, LucideIcon>;
 
 const kpisIcons: IconMap = {
   productsTotal: ShoppingBasket,
-  expiredCertificats: AlertTriangle,
+  expiredCertificates: AlertTriangle,
   validCertificats: Check,
   visitsTotal: QrCode,
   suppliersTotal: Briefcase,

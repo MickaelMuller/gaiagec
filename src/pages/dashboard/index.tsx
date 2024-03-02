@@ -39,6 +39,7 @@ const Dashboard = () => {
     id: t(`kpis.${item.status}`),
     label: t(`kpis.${item.status}`),
     value: item.percentage,
+    quantity: item.quantity,
     color: getGraphColor(item.status),
   }));
 
@@ -47,12 +48,12 @@ const Dashboard = () => {
       <PageHeader title={t('dashboard.title')} />
       <div className="flex flex-row gap-7 overflow-x-auto whitespace-nowrap">
         {kpis?.map((kpi) => {
-          if (kpi.key !== 'expiredCertificats') {
+          if (kpi.key !== 'expiredCertificates') {
             return <Kpis key={t(kpi.key)} data={kpi} icon={kpisIcons[kpi.key]} />;
           } else {
-            const hasExpiredCertificats = kpi.value > 0;
-            const icon = hasExpiredCertificats ? kpisIcons[kpi.key] : Check;
-            const color = hasExpiredCertificats ? 'red' : 'green';
+            const hasexpiredCertificates = kpi.value > 0;
+            const icon = hasexpiredCertificates ? kpisIcons[kpi.key] : Check;
+            const color = hasexpiredCertificates ? 'red' : 'green';
 
             return <Kpis key={t(kpi.key)} data={kpi} icon={icon} color={color} />;
           }
@@ -64,7 +65,27 @@ const Dashboard = () => {
           <Text className="text-center" is="h3" size="xl">
             {t('dashboard.chart.title')}
           </Text>
-          <DashboardPieChart data={formatedDataPie as DataItem[]} />
+          <div className="flex flex-row">
+            <DashboardPieChart data={formatedDataPie as DataItem[]} />
+            <div className="mt-32">
+              <ul className="flex flex-col gap-4">
+                {formatedDataPie?.map((item) => (
+                  <li key={item.id} className="flex flex-row items-center gap-4">
+                    <div className="h-4 w-4 rounded-full" style={{ backgroundColor: item.color }} />
+                    <Text is="span">
+                      {item.label}:&nbsp;
+                      <Text bold="semi" is="span">
+                        {item.value}%&nbsp;
+                      </Text>
+                      <Text size="sm" is="span">
+                        ({item.quantity})
+                      </Text>
+                    </Text>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
         <div className="basis-1/3 rounded-md border p-4 shadow-lg">
           <Text className="text-center" is="h3" size="xl">

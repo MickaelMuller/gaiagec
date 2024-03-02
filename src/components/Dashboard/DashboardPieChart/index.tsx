@@ -2,13 +2,15 @@ import dynamic from 'next/dynamic';
 
 import { DataItem } from '@/types/dashboardPie';
 
-const ResponsivePie = dynamic(() => import('@nivo/pie').then((m) => m.ResponsivePie), {
+const Pie = dynamic(() => import('@nivo/pie').then((m) => m.Pie), {
   ssr: false,
 });
 
 const DashboardPieChart = ({ data }: { data: DataItem[] }) => (
-  <ResponsivePie
+  <Pie
     data={data}
+    height={400}
+    width={400}
     margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
     innerRadius={0.5}
     padAngle={0.9}
