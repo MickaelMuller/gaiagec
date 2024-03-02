@@ -72,7 +72,7 @@ const Dashboard = () => {
                 {formatedDataPie?.map((item) => (
                   <li key={item.id} className="flex flex-row items-center gap-4">
                     <div className="h-4 w-4 rounded-full" style={{ backgroundColor: item.color }} />
-                    <Text is="span">
+                    <Text className="cursor-default" is="span">
                       {item.label}:&nbsp;
                       <Text bold="semi" is="span">
                         {item.value}%&nbsp;

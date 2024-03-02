@@ -10,7 +10,7 @@ const DashboardPieChart = ({ data }: { data: DataItem[] }) => (
   <Pie
     data={data}
     height={400}
-    width={400}
+    width={600}
     margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
     innerRadius={0.5}
     padAngle={0.9}
