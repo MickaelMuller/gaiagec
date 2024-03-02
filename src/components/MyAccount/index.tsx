@@ -33,9 +33,9 @@ const MyAccount = () => {
         <DropdownMenuTrigger asChild>
           <div className="flex cursor-pointer self-center">
             <User className="mr-2" color="white" />
-            <Text className="text-white">
+            <Text bold="light" className="text-white">
               {`${session?.firstName} ${session?.lastName}`} -{' '}
-              <Text font="hind" is="span">
+              <Text bold="light" className="text-gray-300" is="span">
                 {brands?.[0].name}
               </Text>
             </Text>

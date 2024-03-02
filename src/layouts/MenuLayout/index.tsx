@@ -1,11 +1,18 @@
 import { ReactNode } from 'react';
 import { useTranslation } from 'next-i18next';
 
+import { cn } from '@/lib/utils/cn';
 import Text from '@/components/ui/text';
 import MyAccount from '@/components/MyAccount';
 import Tabs from '@/components/Tabs';
 
-export default function LayoutMenu({ children }: { children: ReactNode }) {
+export default function LayoutMenu({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   const { t } = useTranslation();
 
   return (
@@ -19,7 +26,7 @@ export default function LayoutMenu({ children }: { children: ReactNode }) {
           <MyAccount />
         </div>
       </nav>
-      <main className="p-8">{children}</main>
+      <main className={cn(className, 'p-8')}>{children}</main>
     </div>
   );
 }

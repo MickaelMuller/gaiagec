@@ -44,7 +44,7 @@ export interface TextProps extends VariantProps<typeof textVariant> {
   is?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span' | 'div';
 }
 
-const Text = ({ children, font, size, bold, className = '', is = 'p' }: TextProps) => {
+const Text = ({ children, font, size, bold = 'light', className = '', is = 'p' }: TextProps) => {
   const TextTag = is;
 
   return <TextTag className={cn(textVariant({ font, size, bold, className }))}>{children}</TextTag>;

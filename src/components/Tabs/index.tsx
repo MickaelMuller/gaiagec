@@ -56,7 +56,9 @@ const Tabs = () => {
               'duration-75 hover:border-b-2': !isSelected,
             })}
           >
-            <Text font="poppins">{tab.label}</Text>
+            <Text bold="light" font="poppins">
+              {tab.label}
+            </Text>
           </Link>
         );
       })}

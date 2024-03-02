@@ -3,6 +3,7 @@ import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { Grape_Nuts, Hind, Poppins } from 'next/font/google';
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { appWithTranslation } from 'next-i18next';
 
 import { REACT_QUERY_DEFAULT_CONFIG } from '@/lib/utils/constants/react-query-default-config';
@@ -37,6 +38,7 @@ function App({ Component, pageProps: { dehydratedState, ...pageProps } }: AppPro
         <main className={`${poppins.variable} ${grapeNuts.variable} ${hind.variable}`}>
           <Component {...pageProps} />
         </main>
+        <ReactQueryDevtools />
       </Hydrate>
     </QueryClientProvider>
   );

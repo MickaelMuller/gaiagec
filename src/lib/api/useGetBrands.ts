@@ -7,15 +7,11 @@ import QUERY_KEYS from '../utils/constants/query-keys';
 import getQueryKey from '../utils/get-query-key';
 import axios from './fetcher';
 
-export const getBrands = async ({ req, res }: GetRequest = {}): Promise<Brands[] | null> => {
-  try {
-    const axiosInstance = await axios({ req, res });
-    const { data } = await axiosInstance.get('/brands');
+export const getBrands = async ({ req, res }: GetRequest = {}): Promise<Brands[]> => {
+  const axiosInstance = await axios({ req, res });
+  const { data } = await axiosInstance.get('/brands');
 
-    return data.brands;
-  } catch (error) {
-    return null;
-  }
+  return data.brands;
 };
 
 const useGetBrands = (options?: UseQueryOptions<Brands[]>) =>

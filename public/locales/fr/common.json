@@ -6,6 +6,13 @@
     "switch_brand" : "Changer de marque", 
     "logout": "Déconnexion"
   },
+  "dashboard": {
+    "metadata": {
+      "title": "Gaiagec - Tableau de bord",
+      "description": "Tableau de bord page"
+    },
+    "title": "Tableau de bord"
+  },
   "login": {
     "metadata": {
       "title": "Gaiagec - Connexion",
@@ -24,5 +31,11 @@
     "email": "Email",
     "password": "Mot de passe",
     "login": "Connexion"
+  },
+  "kpis": {
+    "productsTotal": "Produits en ligne",
+    "expiredCertificates": "Certificats expirés",
+    "visitsTotal": "Nombre de scans",
+    "suppliersTotal": "Fournisseurs actifs"
   }
 }
