@@ -17,16 +17,18 @@ export default function LayoutMenu({
 
   return (
     <div>
-      <nav className="flex h-16 w-full items-center gap-7 bg-primary">
-        <Text className="ml-5  text-white" font="grapeNuts" is="h1" size="3xl" bold="semi">
-          {t('gaiagec')}
-        </Text>
-        <div className="flex w-full justify-between">
-          <Tabs />
-          <MyAccount />
+      <nav className="bg-primary">
+        <div className="flex h-16 w-full items-center gap-7 2xl:m-auto 2xl:max-w-[2000px]">
+          <Text className="ml-5  text-white" font="grapeNuts" is="h1" size="3xl" bold="semi">
+            {t('gaiagec')}
+          </Text>
+          <div className="flex w-full justify-between ">
+            <Tabs />
+            <MyAccount />
+          </div>
         </div>
       </nav>
-      <main className={cn(className, 'p-8')}>{children}</main>
+      <div className={cn(className, 'p-8 2xl:m-auto 2xl:max-w-[2000px]')}>{children}</div>
     </div>
   );
 }

@@ -63,7 +63,7 @@ const Dashboard = () => {
                     onMouseEnter={() => setActiveId(item.id)}
                     onMouseLeave={() => setActiveId(null)}
                     key={item.id}
-                    className="flex flex-row items-center gap-4"
+                    className="flex flex-row items-center gap-2"
                   >
                     <div className="h-4 w-4 rounded-full" style={{ backgroundColor: item.color }} />
                     <Text className="cursor-default" is="span">
