@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { GetServerSideProps } from 'next';
 import LayoutMenu from '@/layouts/MenuLayout';
-import { Check } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 
 import { DataItem } from '@/types/dashboardPie';
@@ -10,7 +10,6 @@ import useGetCertificatesStatus, {
 import useGetKpisDashboard, { getKpisDashboard } from '@/lib/api/useGetKpisDashboard';
 import QUERY_KEYS from '@/lib/utils/constants/query-keys';
 import getQueryKey from '@/lib/utils/get-query-key';
-import kpisIcons from '@/lib/utils/kpisIcons';
 import { getServerProps } from '@/lib/utils/server-side/get-server-props';
 import Text from '@/components/ui/text';
 import DashboardPieChart from '@/components/Dashboard/DashboardPieChart';
@@ -34,6 +33,7 @@ const Dashboard = () => {
   const { data: kpis } = useGetKpisDashboard();
   const { data: certificatesDistribution } = useGetCertificatesStatus();
   const { t } = useTranslation();
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   const formatedDataPie = certificatesDistribution?.distribution.map((item) => ({
     id: t(`kpis.${item.status}`),
@@ -46,31 +46,25 @@ const Dashboard = () => {
   return (
     <LayoutMenu className="flex flex-col gap-12">
       <PageHeader title={t('dashboard.title')} />
-      <div className="flex flex-row gap-7 overflow-x-auto whitespace-nowrap">
-        {kpis?.map((kpi) => {
-          if (kpi.key !== 'expiredCertificates') {
-            return <Kpis key={t(kpi.key)} data={kpi} icon={kpisIcons[kpi.key]} />;
-          } else {
-            const hasexpiredCertificates = kpi.value > 0;
-            const icon = hasexpiredCertificates ? kpisIcons[kpi.key] : Check;
-            const color = hasexpiredCertificates ? 'red' : 'green';
 
-            return <Kpis key={t(kpi.key)} data={kpi} icon={icon} color={color} />;
-          }
-        })}
-      </div>
+      {kpis ? <Kpis kpis={kpis} /> : null}
 
       <div className="flex flex-col gap-16 lg:flex-row">
-        <div className="h-96 basis-2/3 rounded-md border p-4 shadow-lg">
+        <div className="h-96 basis-3/5 rounded-md border p-4 shadow-lg">
           <Text className="text-center" is="h3" size="xl">
             {t('dashboard.chart.title')}
           </Text>
           <div className="flex flex-row">
-            <DashboardPieChart data={formatedDataPie as DataItem[]} />
+            <DashboardPieChart data={formatedDataPie as DataItem[]} activeId={activeId} />
             <div className="mt-32">
               <ul className="flex flex-col gap-4">
                 {formatedDataPie?.map((item) => (
-                  <li key={item.id} className="flex flex-row items-center gap-4">
+                  <li
+                    onMouseEnter={() => setActiveId(item.id)}
+                    onMouseLeave={() => setActiveId(null)}
+                    key={item.id}
+                    className="flex flex-row items-center gap-4"
+                  >
                     <div className="h-4 w-4 rounded-full" style={{ backgroundColor: item.color }} />
                     <Text className="cursor-default" is="span">
                       {item.label}:&nbsp;
@@ -87,7 +81,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="basis-1/3 rounded-md border p-4 shadow-lg">
+        <div className="basis-2/5 rounded-md border p-4 shadow-lg">
           <Text className="text-center" is="h3" size="xl">
             {t('dashboard.certificates_table.title')}
           </Text>

@@ -3,51 +3,46 @@ import { LucideProps } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 
 import { Kpis as KpisType } from '@/types/kpis';
-import { cn } from '@/lib/utils/cn';
+import { getEnrichmentKpis } from '@/lib/utils/kpis';
 
 import Text from '../ui/text';
 
 type KpisProps = {
-  data: KpisType;
+  kpis: KpisType[];
   icon?: React.FC<LucideProps>;
   color?: string;
 };
 
-const Kpi = ({ data, icon: Icon, color }: KpisProps) => {
+const Kpi = ({ kpis }: KpisProps) => {
   const { t } = useTranslation();
-  const translatedKey = t(`kpis.${data.key}`);
+  const enrichmentKpis = getEnrichmentKpis(kpis);
 
   return (
-    <div
-      className={cn('rounded-md border p-6 shadow-lg', {
-        'border-red-500': color === 'red',
-        'border-green-500': color === 'green',
+    <div className="flex flex-row gap-7 overflow-x-auto whitespace-nowrap pb-4">
+      {enrichmentKpis.map((kpi) => {
+        const label = t(`kpis.${kpi.key}`);
+        const Icon = kpi?.icon;
+
+        return (
+          <div
+            key={kpi.key}
+            className="rounded-md border p-6 shadow-lg"
+            style={{ borderColor: kpi.color === 'black' ? 'hsl(0, 0%, 80%)' : kpi.color }}
+          >
+            <div className="flex w-56 flex-row justify-between 2xl:w-64">
+              <Text className="mb-5" style={{ color: kpi?.color }} size="xl">
+                {label}
+              </Text>
+              {Icon && <Icon color={kpi?.color} />}
+            </div>
+            <div>
+              <Text bold="semi" size="2xl" style={{ color: kpi?.color }}>
+                {kpi.value}
+              </Text>
+            </div>
+          </div>
+        );
       })}
-    >
-      <div className="flex w-44 flex-row justify-between md:w-56 2xl:w-64">
-        <Text
-          className={cn('mb-5', {
-            'text-red-500': color === 'red',
-            'text-green-500': color === 'green',
-          })}
-          size="xl"
-        >
-          {translatedKey}
-        </Text>
-        {Icon && <Icon color={color} />}
-      </div>
-      <div>
-        <Text
-          className={cn({
-            'text-red-500': color === 'red',
-            'text-green-500': color === 'green',
-          })}
-          bold="semi"
-          size="2xl"
-        >
-          {data.value}
-        </Text>
-      </div>
     </div>
   );
 };

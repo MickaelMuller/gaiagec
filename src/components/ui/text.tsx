@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils/cn';
@@ -42,12 +42,17 @@ export interface TextProps extends VariantProps<typeof textVariant> {
   children: React.ReactNode;
   className?: string;
   is?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'span' | 'div';
+  style?: CSSProperties;
 }
 
-const Text = ({ children, font, size, bold, className = '', is = 'p' }: TextProps) => {
+const Text = ({ children, font, size, bold, className = '', is = 'p', ...rest }: TextProps) => {
   const TextTag = is;
 
-  return <TextTag className={cn(textVariant({ font, size, bold, className }))}>{children}</TextTag>;
+  return (
+    <TextTag className={cn(textVariant({ font, size, bold, className }))} {...rest}>
+      {children}
+    </TextTag>
+  );
 };
 
 export default Text;

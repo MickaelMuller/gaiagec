@@ -13,7 +13,7 @@
     },
     "title": "Tableau de bord", 
     "chart": {
-      "title": "Status des certificats", 
+      "title": "Statut des certificats", 
       "table": {
         "title": "title"
       }
