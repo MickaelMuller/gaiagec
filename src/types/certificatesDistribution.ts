@@ -4,7 +4,9 @@ export type CertificatesDistribution = {
 };
 
 type Distribution = {
-  status: string;
+  status: CertificatStatus;
   quantity: number;
   percentage: number;
 };
+
+export type CertificatStatus = 'valid' | 'expired' | 'expireSoon';

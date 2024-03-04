@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next';
 import LayoutMenu from '@/layouts/MenuLayout';
 import { useTranslation } from 'next-i18next';
 
+import { CertificatStatus } from '@/types/certificatesDistribution';
 import { DataItem } from '@/types/dashboardPie';
 import useGetCertificatesStatus, {
   getCertificatesDistribution,
@@ -16,7 +17,7 @@ import DashboardPieChart from '@/components/Dashboard/DashboardPieChart';
 import Kpis from '@/components/Kpis';
 import PageHeader from '@/components/PageHeader';
 
-const getGraphColor = (status: string) => {
+const getGraphColor = (status: CertificatStatus) => {
   switch (status) {
     case 'valid':
       return 'hsl(133, 53%, 48%)';
@@ -54,31 +55,29 @@ const Dashboard = () => {
           <Text className="text-center" is="h3" size="xl">
             {t('dashboard.chart.title')}
           </Text>
-          <div className="flex flex-row">
+          <div className="flex flex-row justify-center">
             <DashboardPieChart data={formatedDataPie as DataItem[]} activeId={activeId} />
-            <div className="mt-32">
-              <ul className="flex flex-col gap-4">
-                {formatedDataPie?.map((item) => (
-                  <li
-                    onMouseEnter={() => setActiveId(item.id)}
-                    onMouseLeave={() => setActiveId(null)}
-                    key={item.id}
-                    className="flex flex-row items-center gap-2"
-                  >
-                    <div className="h-4 w-4 rounded-full" style={{ backgroundColor: item.color }} />
-                    <Text className="cursor-default" is="span">
-                      {item.label}:&nbsp;
-                      <Text bold="semi" is="span">
-                        {item.value}%&nbsp;
-                      </Text>
-                      <Text size="sm" is="span">
-                        ({item.quantity})
-                      </Text>
+            <ul className="flex flex-col gap-4 self-center">
+              {formatedDataPie?.map((item) => (
+                <li
+                  onMouseEnter={() => setActiveId(item.id)}
+                  onMouseLeave={() => setActiveId(null)}
+                  key={item.id}
+                  className="flex flex-row items-center gap-2"
+                >
+                  <div className="h-4 w-4 rounded-full" style={{ backgroundColor: item.color }} />
+                  <Text className="cursor-default" is="span">
+                    {item.label}:&nbsp;
+                    <Text bold="semi" is="span">
+                      {item.value}%&nbsp;
                     </Text>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                    <Text size="sm" is="span">
+                      ({item.quantity})
+                    </Text>
+                  </Text>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
         <div className="basis-2/5 rounded-md border p-4 shadow-lg">
