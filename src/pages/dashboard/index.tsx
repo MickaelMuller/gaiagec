@@ -5,13 +5,22 @@ import { useTranslation } from 'next-i18next';
 
 import { CertificatStatus } from '@/types/certificatesDistribution';
 import { DataItem } from '@/types/dashboardPie';
-import useGetCertificatesStatus, {
+import useGetCertificates, { getCertificates } from '@/lib/api/useGetCertificates';
+import useGetCertificatesDistribution, {
   getCertificatesDistribution,
 } from '@/lib/api/useGetCertificatesDistribution';
 import useGetKpisDashboard, { getKpisDashboard } from '@/lib/api/useGetKpisDashboard';
 import QUERY_KEYS from '@/lib/utils/constants/query-keys';
 import getQueryKey from '@/lib/utils/get-query-key';
 import { getServerProps } from '@/lib/utils/server-side/get-server-props';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import Text from '@/components/ui/text';
 import DashboardPieChart from '@/components/Dashboard/DashboardPieChart';
 import Kpis from '@/components/Kpis';
@@ -32,7 +41,8 @@ const getGraphColor = (status: CertificatStatus) => {
 
 const Dashboard = () => {
   const { data: kpis } = useGetKpisDashboard();
-  const { data: certificatesDistribution } = useGetCertificatesStatus();
+  const { data: certificatesDistribution } = useGetCertificatesDistribution();
+  const { data: certificates } = useGetCertificates();
   const { t } = useTranslation();
   const [activeId, setActiveId] = useState<string | null>(null);
 
@@ -43,6 +53,21 @@ const Dashboard = () => {
     quantity: item.quantity,
     color: getGraphColor(item.status),
   }));
+
+  const columns: Record<string, 'name' | 'supplierName' | 'validTo'>[] = [
+    {
+      header: t('dashboard.certificates_table.name'),
+      accessor: 'name',
+    },
+    {
+      header: t('dashboard.certificates_table.supplier'),
+      accessor: 'supplierName',
+    },
+    {
+      header: t('dashboard.certificates_table.expiration_date'),
+      accessor: 'validTo',
+    },
+  ];
 
   return (
     <LayoutMenu className="flex flex-col gap-12">
@@ -80,10 +105,34 @@ const Dashboard = () => {
             </ul>
           </div>
         </div>
+
         <div className="basis-2/5 rounded-md border p-4 shadow-lg">
-          <Text className="text-center" is="h3" size="xl">
+          <Text className="mb-4 text-center" is="h3" size="xl">
             {t('dashboard.certificates_table.title')}
           </Text>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableHead key={`head-${column.header}`}>{column.header}</TableHead>
+                ))}
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {certificates?.certificates.map((certificate) => (
+                <TableRow className="border-b-0 " key={certificate.supplierId}>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={`cell-${column.header}`}
+                      className="max-w-36 overflow-hidden text-ellipsis whitespace-nowrap"
+                    >
+                      {certificate[column.accessor]}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
       </div>
     </LayoutMenu>
@@ -99,6 +148,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     {
       queryKey: getQueryKey(QUERY_KEYS.CERTIFICATES_DISTRIBUTION),
       queryFn: () => getCertificatesDistribution({ req: context.req, res: context.res }),
+    },
+    {
+      queryKey: getQueryKey(QUERY_KEYS.CERTIFICATES),
+      queryFn: () => getCertificates({ req: context.req, res: context.res }),
     },
   ];
 

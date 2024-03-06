@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { CertificatesDistribution } from '@/types/certificatesDistribution';
+import { CertificatesDistribution } from '@/types/certificates';
 
 import GetRequest from '../../types/api/getRequest';
 import { UseQueryOptions } from '../../types/utils/useQueryOptions';
@@ -18,11 +18,11 @@ export const getCertificatesDistribution = async ({
   return data;
 };
 
-const useGetCertificatesStatus = (options?: UseQueryOptions<CertificatesDistribution>) =>
+const useGetCertificatesDistribution = (options?: UseQueryOptions<CertificatesDistribution>) =>
   useQuery({
     queryKey: getQueryKey(QUERY_KEYS.CERTIFICATES_DISTRIBUTION),
     queryFn: () => getCertificatesDistribution(),
     ...options,
   });
 
-export default useGetCertificatesStatus;
+export default useGetCertificatesDistribution;

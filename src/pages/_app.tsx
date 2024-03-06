@@ -35,7 +35,9 @@ function App({ Component, pageProps: { dehydratedState, ...pageProps } }: AppPro
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={dehydratedState}>
-        <main className={`${poppins.variable} ${grapeNuts.variable} ${hind.variable}`}>
+        <main
+          className={`${poppins.variable} ${grapeNuts.variable} ${hind.variable} min-h-screen bg-slate-50`}
+        >
           <Component {...pageProps} />
         </main>
         <ReactQueryDevtools />

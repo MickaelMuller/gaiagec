@@ -19,7 +19,10 @@
       }
     },
     "certificates_table": {
-      "title": "Détails des certificats"
+      "title": "Détails des certificats",
+      "name": "Nom",
+      "supplier": "Fournisseur", 
+      "expiration_date": "Date d'expiration"
     }
   },
   "login": {
