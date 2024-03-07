@@ -8,17 +8,21 @@ export type CertificatesCollection = {
   certificates: Certificate[];
 };
 
-type Certificate = {
-  tenantId: string;
+export type Certificate = {
   brandId: string;
+  fileContentType: string;
+  fileLength: number;
+  fileName: string;
+  fileUri: string;
   name: string;
+  reference: string;
+  status: string;
   supplierId: string;
   supplierName: string;
-  status: string;
-  visibility: string;
+  tenantId: string;
   validFrom: string;
   validTo: string;
-  url: string;
+  visibility: string;
 };
 
 export type CertificatesStatus = 'expired' | 'expireSoon' | 'valid';

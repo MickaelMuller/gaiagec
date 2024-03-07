@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { GetServerSideProps } from 'next';
 import LayoutMenu from '@/layouts/MenuLayout';
 import { useTranslation } from 'next-i18next';
+import queryString from 'query-string';
 
+import { CertificatesStatus } from '@/types/certificates';
 import { CertificatStatus } from '@/types/certificatesDistribution';
 import { DataItem } from '@/types/dashboardPie';
 import useGetCertificates, { getCertificates } from '@/lib/api/useGetCertificates';
@@ -13,16 +15,10 @@ import useGetKpisDashboard, { getKpisDashboard } from '@/lib/api/useGetKpisDashb
 import QUERY_KEYS from '@/lib/utils/constants/query-keys';
 import getQueryKey from '@/lib/utils/get-query-key';
 import { getServerProps } from '@/lib/utils/server-side/get-server-props';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
 import Text from '@/components/ui/text';
 import DashboardPieChart from '@/components/Dashboard/DashboardPieChart';
+import { useCertificatesColumnsDashboard } from '@/components/Dashboard/DashboardTableCertificates/column';
+import { DataTable } from '@/components/DataTable';
 import Kpis from '@/components/Kpis';
 import PageHeader from '@/components/PageHeader';
 
@@ -39,14 +35,17 @@ const getGraphColor = (status: CertificatStatus) => {
   }
 };
 
+const certificatesStatusQuery: CertificatesStatus[] = ['expired', 'expireSoon'];
+
 const Dashboard = () => {
-  const { data: kpis } = useGetKpisDashboard();
-  const { data: certificatesDistribution } = useGetCertificatesDistribution();
-  const { data: certificates } = useGetCertificates();
   const { t } = useTranslation();
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  const formatedDataPie = certificatesDistribution?.distribution.map((item) => ({
+  const { data: kpis } = useGetKpisDashboard();
+  const { data: certificatesDistribution } = useGetCertificatesDistribution();
+  const { data: certificates } = useGetCertificates({ status: certificatesStatusQuery });
+
+  const formatedDataPie = certificatesDistribution?.distribution?.map((item) => ({
     id: t(`kpis.${item.status}`),
     label: t(`kpis.${item.status}`),
     value: item.percentage,
@@ -54,20 +53,7 @@ const Dashboard = () => {
     color: getGraphColor(item.status),
   }));
 
-  const columns: Record<string, 'name' | 'supplierName' | 'validTo'>[] = [
-    {
-      header: t('dashboard.certificates_table.name'),
-      accessor: 'name',
-    },
-    {
-      header: t('dashboard.certificates_table.supplier'),
-      accessor: 'supplierName',
-    },
-    {
-      header: t('dashboard.certificates_table.expiration_date'),
-      accessor: 'validTo',
-    },
-  ];
+  const columns = useCertificatesColumnsDashboard();
 
   return (
     <LayoutMenu className="flex flex-col gap-12">
@@ -75,13 +61,14 @@ const Dashboard = () => {
 
       {kpis ? <Kpis kpis={kpis} /> : null}
 
-      <div className="flex flex-col gap-16 lg:flex-row">
+      <div className="flex flex-col gap-8 lg:flex-row">
         <div className="h-96 basis-3/5 rounded-md border p-4 shadow-lg">
           <Text className="text-center" is="h3" size="xl">
             {t('dashboard.chart.title')}
           </Text>
           <div className="flex flex-row justify-center">
             <DashboardPieChart data={formatedDataPie as DataItem[]} activeId={activeId} />
+
             <ul className="flex flex-col gap-4 self-center">
               {formatedDataPie?.map((item) => (
                 <li
@@ -110,29 +97,12 @@ const Dashboard = () => {
           <Text className="mb-4 text-center" is="h3" size="xl">
             {t('dashboard.certificates_table.title')}
           </Text>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableHead key={`head-${column.header}`}>{column.header}</TableHead>
-                ))}
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {certificates?.certificates.map((certificate) => (
-                <TableRow className="border-b-0 " key={certificate.supplierId}>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={`cell-${column.header}`}
-                      className="max-w-36 overflow-hidden text-ellipsis whitespace-nowrap"
-                    >
-                      {certificate[column.accessor]}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <DataTable
+            borderRow={false}
+            columns={columns}
+            data={certificates?.certificates ?? []}
+            emptyText={t('dashboard.certificates_table.empty')}
+          />
         </div>
       </div>
     </LayoutMenu>
@@ -150,8 +120,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       queryFn: () => getCertificatesDistribution({ req: context.req, res: context.res }),
     },
     {
-      queryKey: getQueryKey(QUERY_KEYS.CERTIFICATES),
-      queryFn: () => getCertificates({ req: context.req, res: context.res }),
+      queryKey: getQueryKey(
+        QUERY_KEYS.CERTIFICATES,
+        queryString.stringify({ status: certificatesStatusQuery })
+      ),
+      queryFn: () =>
+        getCertificates({
+          req: context.req,
+          res: context.res,
+          params: {
+            status: certificatesStatusQuery,
+          },
+        }),
     },
   ];
 

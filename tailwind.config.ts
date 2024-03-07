@@ -19,8 +19,12 @@ const config = {
         '2xl': '1400px',
       },
     },
+
     extend: {
       colors: {
+        success: 'hsl(var(--success))',
+        warning: 'hsl(var(--warning))',
+        error: 'hsl(var(--error))',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

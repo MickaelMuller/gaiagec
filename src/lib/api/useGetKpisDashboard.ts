@@ -7,11 +7,16 @@ import QUERY_KEYS from '../utils/constants/query-keys';
 import getQueryKey from '../utils/get-query-key';
 import axios from './fetcher';
 
-export const getKpisDashboard = async ({ req, res }: GetRequest = {}): Promise<Kpis[]> => {
-  const axiosInstance = await axios({ req, res });
-  const { data } = await axiosInstance.get('/kpis/dashboard');
+export const getKpisDashboard = async ({ req, res }: GetRequest = {}): Promise<Kpis[] | null> => {
+  try {
+    const axiosInstance = await axios({ req, res });
 
-  return data.kpis;
+    const { data } = await axiosInstance.get('/kpis/dashboard');
+
+    return data.kpis;
+  } catch (error) {
+    return null;
+  }
 };
 
 const useGetKpisDashboard = (options?: UseQueryOptions<Kpis[]>) =>

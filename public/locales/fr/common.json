@@ -22,7 +22,8 @@
       "title": "Détails des certificats",
       "name": "Nom",
       "supplier": "Fournisseur", 
-      "expiration_date": "Date d'expiration"
+      "expiration_date": "Date d'expiration", 
+      "empty": "Aucun certificat exipré"
     }
   },
   "login": {

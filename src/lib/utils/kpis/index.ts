@@ -21,7 +21,7 @@ export const kpisIcons: IconMap = {
 };
 
 export const getEnrichmentKpis = (kpis: Kpis[]) =>
-  kpis.map((kpi) => {
+  kpis?.map((kpi) => {
     switch (kpi.key) {
       case 'expiredCertificates': {
         const hasExpiredCertificates = kpi.value > 0;

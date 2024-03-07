@@ -11,11 +11,15 @@ import axios from './fetcher';
 export const getCertificatesDistribution = async ({
   req,
   res,
-}: GetRequest = {}): Promise<CertificatesDistribution> => {
-  const axiosInstance = await axios({ req, res });
-  const { data } = await axiosInstance.get('/certificates/distribution');
+}: GetRequest = {}): Promise<CertificatesDistribution | null> => {
+  try {
+    const axiosInstance = await axios({ req, res });
+    const { data } = await axiosInstance.get('/certificates/distribution');
 
-  return data;
+    return data;
+  } catch (error) {
+    return null;
+  }
 };
 
 const useGetCertificatesDistribution = (options?: UseQueryOptions<CertificatesDistribution>) =>

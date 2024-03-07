@@ -1,4 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
+import { redirect } from 'next/navigation';
 import baseAxios, { AxiosInstance, AxiosRequestConfig, HeadersDefaults } from 'axios';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
@@ -78,12 +79,14 @@ const axios = async (config?: FetcherProps): Promise<AxiosInstance> => {
         } catch (error) {
           deleteCookie(COOKIES.GAIAGEC_TOKEN, { req, res });
           deleteCookie(COOKIES.GAIAGEC_TOKEN, { req, res });
+          redirect('/login');
         } finally {
           refreshTokenFunction = undefined;
         }
       } else if (error.response.status === 401) {
         deleteCookie(COOKIES.GAIAGEC_TOKEN, { req, res });
         deleteCookie(COOKIES.GAIAGEC_REFRESH_TOKEN, { req, res });
+        redirect('/login');
       }
 
       return Promise.reject(error);

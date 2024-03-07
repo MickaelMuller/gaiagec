@@ -45,7 +45,7 @@ export const getServerProps = async ({
     : [];
 
   const promises = await Promise.all(
-    ([...queries, ...defaultQueries] as PageQuery[]).map(({ queryKey, queryFn }) =>
+    ([...queries, ...defaultQueries] as PageQuery[])?.map(({ queryKey, queryFn }) =>
       queryClient.fetchQuery({ queryKey, queryFn })
     )
   );
