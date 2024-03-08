@@ -117,7 +117,6 @@ module.exports = {
     'object-shorthand': 'error',
     'prefer-arrow-callback': 'error',
     'prefer-const': 'error',
-    'prefer-destructuring': 'error',
     'prefer-exponentiation-operator': 'error',
     'prefer-numeric-literals': 'error',
     'prefer-object-spread': 'error',

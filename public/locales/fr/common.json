@@ -1,13 +1,14 @@
 {
   "gaiagec": "Gaiagec",
-  "test": "YOOOOO",
   "gaiagec_explanations": "Chez Gaia Solutions, nous croyons fermement à la Responsabilité Sociale des Entreprises et nous sommes à l'avant-garde des défis posés par la loi AGEC. C’est pourquoi nous avons conçu Gaiagec.",
+  
   "navbar": {
     "switch_brand" : "Changer de marque", 
     "logout": "Déconnexion"
   },
+
   "dashboard": {
-    "metadata": {
+    "meta": {
       "title": "Gaiagec - Tableau de bord",
       "description": "Tableau de bord page"
     },
@@ -20,31 +21,61 @@
     },
     "certificates_table": {
       "title": "Détails des certificats",
-      "name": "Nom",
-      "supplier": "Fournisseur", 
-      "expiration_date": "Date d'expiration", 
-      "empty": "Aucun certificat exipré"
+      "expired_certificates": "certificats expirés"
     }
+   
   },
+
+  "table": {
+    "name": "Nom",
+    "supplier": "Fournisseur", 
+    "expiration_date": "Date d'expiration",
+    "visible": "Visible",
+    "status": "Statut",
+    "empty": "Aucun {{entity}}",
+    "expired": "Expiré",
+    "expire_soon": "Expire bientôt",
+    "valid": "Valide"
+
+  },
+
   "login": {
-    "metadata": {
+    "meta": {
       "title": "Gaiagec - Connexion",
       "description": "Connexion page"
     },
     "welcome_gaiagec": "Bienvenue sur Gaiagec",
     "forget_password": "Mot de passe oublié ?"
   },
+
   "register": {
-    "metadata": {
+    "meta": {
       "title": "Gaiagec - Inscription",
       "description": "Inscription page"
     }
   },
+
+  "certificates": {
+    "meta": {
+      "title": "Gaiagec - Certificats",
+      "description": "Certificats page"
+    },
+    "title": "Certificats",
+    "table": {
+      "title": "Détails des certificats",
+      "name": "Nom",
+      "supplier": "Fournisseur", 
+      "expiration_date": "Date d'expiration", 
+      "empty": "Aucun certificat exipré"
+    }
+  },
+
   "form": {
     "email": "Email",
     "password": "Mot de passe",
     "login": "Connexion"
   },
+
   "kpis": {
     "productsTotal": "Produits en ligne",
     "expiredCertificates": "Certificats expirés",

@@ -21,17 +21,17 @@ export const useCertificatesColumnsDashboard: () => ColumnDef<Certificate>[] = (
   return [
     {
       accessorKey: 'name',
-      header: t('dashboard.certificates_table.name'),
+      header: t('table.name'),
       cell: ({ row }) => renderCell(row.original.name),
     },
     {
       accessorKey: 'supplierName',
-      header: t('dashboard.certificates_table.supplier'),
+      header: t('table.supplier'),
       cell: ({ row }) => renderCell(row.original.supplierName),
     },
     {
       accessorKey: 'validTo',
-      header: t('dashboard.certificates_table.expiration_date'),
+      header: t('table.expiration_date'),
       cell: ({ row }) => (
         <Text font="hind">{fromISOToReadableDate({ date: row.original.validTo })}</Text>
       ),

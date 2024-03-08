@@ -2,10 +2,11 @@ import { GetServerSideProps } from 'next';
 import LayoutMenu from '@/layouts/MenuLayout';
 
 import { getServerProps } from '@/lib/utils/server-side/get-server-props';
+import PageHeader from '@/components/PageHeader';
 
 const Suppliers = () => (
   <LayoutMenu>
-    <h1>Fournisseurs</h1>
+    <PageHeader ns="supplier" />
   </LayoutMenu>
 );
 

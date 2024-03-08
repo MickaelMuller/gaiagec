@@ -17,7 +17,7 @@ import getQueryKey from '@/lib/utils/get-query-key';
 import { getServerProps } from '@/lib/utils/server-side/get-server-props';
 import Text from '@/components/ui/text';
 import DashboardPieChart from '@/components/Dashboard/DashboardPieChart';
-import { useCertificatesColumnsDashboard } from '@/components/Dashboard/DashboardTableCertificates/column';
+import { useCertificatesColumnsDashboard } from '@/components/Dashboard/useCertificatesColumnsDashboard';
 import { DataTable } from '@/components/DataTable';
 import Kpis from '@/components/Kpis';
 import PageHeader from '@/components/PageHeader';
@@ -57,7 +57,7 @@ const Dashboard = () => {
 
   return (
     <LayoutMenu className="flex flex-col gap-12">
-      <PageHeader title={t('dashboard.title')} />
+      <PageHeader ns="dashboard" />
 
       {kpis ? <Kpis kpis={kpis} /> : null}
 
@@ -101,7 +101,9 @@ const Dashboard = () => {
             borderRow={false}
             columns={columns}
             data={certificates?.certificates ?? []}
-            emptyText={t('dashboard.certificates_table.empty')}
+            emptyText={t('table.empty', {
+              entity: t('dashboard.certificates_table.expired_certificates'),
+            })}
           />
         </div>
       </div>

@@ -75,7 +75,7 @@ const LoginPage = () => {
               {t('form.login')}
             </Button>
           </form>
-          <Link className="w-full text-end" href={URLS.FORGET_PASSWORD}>
+          <Link className="self-end" href={URLS.FORGET_PASSWORD}>
             <Text size="sm" className="text-primary">
               {t('login.forget_password')}
             </Text>
