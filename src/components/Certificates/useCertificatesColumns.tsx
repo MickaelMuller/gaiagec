@@ -1,15 +1,15 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { Eye, EyeOff, FileDown, Mail } from 'lucide-react';
+import { ArrowUpDown, Eye, EyeOff, Filter, GripVertical } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 
 import { Certificate } from '@/types/certificates';
-import { cn } from '@/lib/utils/cn';
 import diffInDaysFromNow from '@/lib/utils/date/diffInDaysFromNow';
 import { fromISOToReadableDate } from '@/lib/utils/date/format';
 import { DAYS } from '@/lib/utils/time';
 import Text from '@/components/ui/text';
 
 import { Badge } from '../ui/badge';
+import { Button } from '../ui/button';
 
 const useCertificatesColumns: () => ColumnDef<Certificate>[] = () => {
   const { t } = useTranslation();
@@ -32,7 +32,15 @@ const useCertificatesColumns: () => ColumnDef<Certificate>[] = () => {
     },
     {
       accessorKey: 'validTo',
-      header: t('table.status'),
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          {t('table.status')}
+          <Filter className="ml-2 h-4 w-4" />
+        </Button>
+      ),
       cell: ({ row }) => {
         const certificates = row.original as Certificate;
 
@@ -54,7 +62,15 @@ const useCertificatesColumns: () => ColumnDef<Certificate>[] = () => {
     },
     {
       accessorKey: 'validTo',
-      header: t('table.expiration_date'),
+      header: ({ column }) => (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          {t('table.expiration_date')}
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      ),
       cell: ({ row }) => renderCell(fromISOToReadableDate({ date: row.original.validTo })),
     },
     {
@@ -70,28 +86,12 @@ const useCertificatesColumns: () => ColumnDef<Certificate>[] = () => {
     {
       id: 'actions',
       cell: ({ row }) => {
-        const certificates = row.original as Certificate;
-
-        const diff = diffInDaysFromNow(certificates.validTo);
-
-        const certificateIsExpired = diff <= 0;
-        const certificateExpireSoon = diff <= DAYS(90).inDays && diff >= 0;
-        const certificateIsValid = diff >= DAYS(90).inDays;
-
-        const className = cn('cursor-pointer', {
-          'text-error': certificateIsExpired,
-          'text-warning': certificateExpireSoon,
-          'text-success': certificateIsValid,
-        });
-
-        const displayMailIcon = diff <= DAYS(90).inDays;
+        // eslint-disable-next-line
+        console.log(row);
 
         return (
           <div className="flex gap-2">
-            <a href={certificates.fileUri} target="_blank" download>
-              <FileDown className={className} />
-            </a>
-            {displayMailIcon && <Mail className={className} />}
+            <GripVertical />
           </div>
         );
       },

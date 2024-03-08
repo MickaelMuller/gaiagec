@@ -11,20 +11,22 @@ import QUERY_KEYS from '../utils/constants/query-keys';
 import getQueryKey from '../utils/get-query-key';
 import axios from './fetcher';
 
+export type CertificatesParams = {
+  status?: CertificatesStatus[];
+  orderBy?:
+    | 'validToDesc'
+    | 'validToAsc'
+    | 'validFromDesc'
+    | 'validFromAsc'
+    | 'nameAsc'
+    | 'nameDesc';
+  name?: string;
+  page?: number;
+  size?: number;
+};
+
 type GetCertificatesParams = GetRequest & {
-  params?: {
-    status?: CertificatesStatus[];
-    orderBy?:
-      | 'validToDesc'
-      | 'validToAsc'
-      | 'validFromDesc'
-      | 'validFromAsc'
-      | 'nameAsc'
-      | 'nameDesc';
-    name?: string;
-    page?: number;
-    size?: number;
-  };
+  params?: CertificatesParams;
 };
 
 export const getCertificates = async ({
@@ -50,7 +52,7 @@ const useGetCertificates = (
   options?: UseQueryOptions<CertificatesCollection>
 ) =>
   useQuery({
-    queryKey: getQueryKey(QUERY_KEYS.CERTIFICATES, queryString.stringify(params ?? {})),
+    queryKey: getQueryKey(QUERY_KEYS.CERTIFICATES),
     queryFn: () => getCertificates({ params }),
     ...options,
   });
