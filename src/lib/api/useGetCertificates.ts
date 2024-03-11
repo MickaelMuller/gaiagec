@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-console */
 import { useQuery } from '@tanstack/react-query';
 import queryString from 'query-string';
 
@@ -36,8 +34,8 @@ export const getCertificates = async ({
 }: GetCertificatesParams = {}): Promise<CertificatesCollection | null> => {
   try {
     const axiosInstance = await axios({ req, res });
+    // ommit empty or null params
     const queryParam = params ? `?${queryString.stringify(params)}` : '';
-    console.log('queryParam', queryParam);
 
     const { data } = await axiosInstance.get(`/certificates/${queryParam}`);
 

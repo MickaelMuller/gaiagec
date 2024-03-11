@@ -1,12 +1,9 @@
-import { useState } from 'react';
 import {
   ColumnDef,
-  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
-  SortingState,
   useReactTable,
 } from '@tanstack/react-table';
 
@@ -35,26 +32,13 @@ export function DataTable<TData, TValue>({
   borderRow = true,
   emptyText = 'No data',
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    enableColumnFilters: true,
-    state: {
-      sorting,
-      columnFilters,
-    },
   });
-
-  // eslint-disable-next-line no-console
-  console.log({ sorting }, { columnFilters });
 
   return (
     <div className={cn({ 'rounded-md border': borderRow })}>
