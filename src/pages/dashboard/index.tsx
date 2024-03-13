@@ -100,7 +100,7 @@ const Dashboard = () => {
           <DataTable
             borderRow={false}
             columns={columns}
-            data={certificates?.certificates ?? []}
+            data={certificates?.results ?? []}
             emptyText={t('table.empty', {
               entity: t('dashboard.certificates_table.expired_certificates'),
             })}
