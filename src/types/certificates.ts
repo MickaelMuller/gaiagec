@@ -3,11 +3,6 @@ export type CertificatesDistribution = {
   distribution: Distribution[];
 };
 
-export type CertificatesCollection = {
-  total: number;
-  certificates: Certificate[];
-};
-
 export type Certificate = {
   brandId: string;
   fileContentType: string;

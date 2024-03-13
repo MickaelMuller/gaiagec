@@ -35,7 +35,9 @@
     "empty": "Aucun {{entity}}",
     "expired": "Expiré",
     "expire_soon": "Expire bientôt",
-    "valid": "Valide"
+    "valid": "Valide", 
+    "reset_filter_one": "Réinitialiser le filtre",
+    "reset_filter_other": "Réinitialiser les filtres"
 
   },
 
@@ -60,7 +62,16 @@
       "title": "Gaiagec - Certificats",
       "description": "Certificats page"
     },
-    "title": "Certificats",
+    "title": "Certificats"
+    
+  },
+
+  "supplier": {
+    "meta": {
+      "title": "Gaiagec - Fournisseurs",
+      "description": "Fournisseurs page"
+    },
+    "title": "Fournisseurs",
     "table": {
       "title": "Détails des certificats",
       "name": "Nom",

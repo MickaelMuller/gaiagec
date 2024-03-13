@@ -1,7 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import queryString from 'query-string';
+import { isEmpty, reject } from 'ramda';
 
-import { CertificatesCollection, CertificatesStatus } from '@/types/certificates';
+import { GaiaCollection } from '@/types/api/collection';
+import { Certificate, CertificatesStatus } from '@/types/certificates';
 
 import GetRequest from '../../types/api/getRequest';
 import { UseQueryOptions } from '../../types/utils/useQueryOptions';
@@ -31,13 +33,13 @@ export const getCertificates = async ({
   req,
   res,
   params,
-}: GetCertificatesParams = {}): Promise<CertificatesCollection | null> => {
+}: GetCertificatesParams = {}): Promise<GaiaCollection<Certificate[]> | null> => {
   try {
     const axiosInstance = await axios({ req, res });
-    // ommit empty or null params
-    const queryParam = params ? `?${queryString.stringify(params)}` : '';
+    const filteredParams = reject(isEmpty)(params ?? {});
+    const queryParams = filteredParams ? `?${queryString.stringify(filteredParams)}` : '';
 
-    const { data } = await axiosInstance.get(`/certificates/${queryParam}`);
+    const { data } = await axiosInstance.get(`/certificates/${queryParams}`);
 
     return data;
   } catch (error) {
@@ -46,11 +48,11 @@ export const getCertificates = async ({
 };
 
 const useGetCertificates = (
-  params?: GetCertificatesParams['params'],
-  options?: UseQueryOptions<CertificatesCollection>
+  params?: CertificatesParams,
+  options?: UseQueryOptions<GaiaCollection<Certificate[]>>
 ) =>
   useQuery({
-    queryKey: getQueryKey(QUERY_KEYS.CERTIFICATES),
+    queryKey: getQueryKey(QUERY_KEYS.CERTIFICATES, queryString.stringify(params ?? {})),
     queryFn: () => getCertificates({ params }),
     ...options,
   });
