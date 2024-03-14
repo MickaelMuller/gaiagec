@@ -15,7 +15,9 @@ export type LoginResponse = {
   refreshToken: string;
 };
 
-export const login = async (inputs: z.infer<typeof loginShema>) => {
+type LoginInputs = z.infer<typeof loginShema>;
+
+export const login = async (inputs: LoginInputs) => {
   const axiosInstance = await axios();
   const { data } = await axiosInstance.post('/authentication/login', inputs);
 
@@ -27,11 +29,9 @@ export const login = async (inputs: z.infer<typeof loginShema>) => {
   return data;
 };
 
-const useLogin = (
-  options?: UseMutationOptions<LoginResponse, AxiosError, z.infer<typeof loginShema>>
-) =>
+const useLogin = (options?: UseMutationOptions<LoginResponse, AxiosError, LoginInputs>) =>
   useMutation({
-    mutationFn: (inputs: z.infer<typeof loginShema>) => login(inputs),
+    mutationFn: (inputs: LoginInputs) => login(inputs),
     ...options,
   });
 

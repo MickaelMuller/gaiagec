@@ -10,21 +10,25 @@ import getQueryKey from '../utils/get-query-key';
 import getQueryParams from '../utils/getQueryParams';
 import axios from './fetcher';
 
-export type SuppliersParams = {
+export type PackagingParams = {
   page?: number;
   size?: number;
+  name?: string;
+  reference?: string;
+  orderBy: 'referenceAsc' | 'referenceDesc' | 'nameAsc' | 'nameDesc';
 };
 
-export const getSuppliers = async ({
+export const getPackagings = async ({
   req,
   res,
   params,
-}: GetRequestWithParams<SuppliersParams> = {}): Promise<GaiaCollection<Supplier[]> | null> => {
+}: GetRequestWithParams<PackagingParams> = {}): Promise<GaiaCollection<Supplier[]> | null> => {
   try {
     const axiosInstance = await axios({ req, res });
+
     const queryParam = getQueryParams(params);
 
-    const { data } = await axiosInstance.get(`/suppliers/${queryParam}`);
+    const { data } = await axiosInstance.get(`/packagings/${queryParam}`);
 
     return data;
   } catch (error) {
@@ -32,14 +36,14 @@ export const getSuppliers = async ({
   }
 };
 
-const useGetSuppliers = (
-  params?: SuppliersParams,
+const useGetPackagings = (
+  params?: PackagingParams,
   options?: UseQueryOptions<GaiaCollection<Supplier[]>>
 ) =>
   useQuery({
-    queryKey: getQueryKey(QUERY_KEYS.SUPPLIERS),
-    queryFn: () => getSuppliers({ params }),
+    queryKey: getQueryKey(QUERY_KEYS.PACKAGINGS),
+    queryFn: () => getPackagings({ params }),
     ...options,
   });
 
-export default useGetSuppliers;
+export default useGetPackagings;

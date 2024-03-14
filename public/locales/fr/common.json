@@ -26,6 +26,22 @@
    
   },
 
+  "products": {
+    "meta": {
+      "title": "Gaiagec - Produits",
+      "description": "Page produits"
+    },
+    "title": "Produits"
+  },
+
+  "packagings": {
+    "meta": {
+      "title": "Gaiagec - Emballages",
+      "description": "Emballage page"
+    },
+    "title": "Emballages"
+  },
+
   "table": {
     "name": "Nom",
     "supplier": "Fournisseur", 

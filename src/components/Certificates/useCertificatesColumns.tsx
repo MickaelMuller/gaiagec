@@ -27,17 +27,37 @@ const useCertificatesColumns: (props: UseCertificatesColumns) => ColumnDef<Certi
 
   return [
     {
-      accessorKey: 'visibility',
-      header: t('table.visible'),
-      cell: ({ row }) => {
-        const visibility = row.original.visibility;
-
-        if (visibility === 'visible') {
-          return <Eye />;
-        }
-
-        return <EyeOff />;
-      },
+      accessorKey: 'name',
+      header: () => (
+        <OrderByButton
+          title={t('table.name')}
+          orderByName="name"
+          orderBy={queryParams?.orderBy ?? ''}
+          onClick={(order) =>
+            onChangeQueryParams({ ...queryParams, orderBy: order as CertificatesParams['orderBy'] })
+          }
+        />
+      ),
+      cell: ({ row }) => renderCell(row.original.name),
+    },
+    {
+      accessorKey: 'validTo',
+      header: () => (
+        <OrderByButton
+          title={t('table.expiration_date')}
+          orderByName="validTo"
+          orderBy={queryParams?.orderBy ?? ''}
+          onClick={(order) =>
+            onChangeQueryParams({ ...queryParams, orderBy: order as CertificatesParams['orderBy'] })
+          }
+        />
+      ),
+      cell: ({ row }) => renderCell(fromISOToReadableDate({ date: row.original.validTo })),
+    },
+    {
+      accessorKey: 'supplierName',
+      header: t('table.supplier'),
+      cell: ({ row }) => renderCell(row.original.supplierName),
     },
     {
       accessorKey: 'validTo',
@@ -62,38 +82,19 @@ const useCertificatesColumns: (props: UseCertificatesColumns) => ColumnDef<Certi
       },
     },
     {
-      accessorKey: 'validTo',
-      header: () => (
-        <OrderByButton
-          title={t('table.expiration_date')}
-          orderByName="validTo"
-          orderBy={queryParams?.orderBy ?? ''}
-          onClick={(order) =>
-            onChangeQueryParams({ ...queryParams, orderBy: order as CertificatesParams['orderBy'] })
-          }
-        />
-      ),
-      cell: ({ row }) => renderCell(fromISOToReadableDate({ date: row.original.validTo })),
+      accessorKey: 'visibility',
+      header: t('table.visible'),
+      cell: ({ row }) => {
+        const visibility = row.original.visibility;
+
+        if (visibility === 'visible') {
+          return <Eye />;
+        }
+
+        return <EyeOff />;
+      },
     },
-    {
-      accessorKey: 'name',
-      header: () => (
-        <OrderByButton
-          title={t('table.name')}
-          orderByName="name"
-          orderBy={queryParams?.orderBy ?? ''}
-          onClick={(order) =>
-            onChangeQueryParams({ ...queryParams, orderBy: order as CertificatesParams['orderBy'] })
-          }
-        />
-      ),
-      cell: ({ row }) => renderCell(row.original.name),
-    },
-    {
-      accessorKey: 'supplierName',
-      header: t('table.supplier'),
-      cell: ({ row }) => renderCell(row.original.supplierName),
-    },
+
     {
       id: 'actions',
       cell: () => (

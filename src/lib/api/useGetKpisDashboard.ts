@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import GetRequest from '../../types/api/getRequest';
+import { GetRequest } from '../../types/api/getRequest';
 import { Kpis } from '../../types/kpis';
 import { UseQueryOptions } from '../../types/utils/useQueryOptions';
 import QUERY_KEYS from '../utils/constants/query-keys';

@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { CertificatesDistribution } from '@/types/certificates';
 
-import GetRequest from '../../types/api/getRequest';
+import { GetRequest } from '../../types/api/getRequest';
 import { UseQueryOptions } from '../../types/utils/useQueryOptions';
 import QUERY_KEYS from '../utils/constants/query-keys';
 import getQueryKey from '../utils/get-query-key';

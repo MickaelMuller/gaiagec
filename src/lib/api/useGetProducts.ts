@@ -3,7 +3,7 @@ import queryString from 'query-string';
 
 import { GaiaCollection } from '@/types/api/collection';
 import { GetRequestWithParams } from '@/types/api/getRequest';
-import { Certificate, CertificatesStatus } from '@/types/certificates';
+import { Certificate } from '@/types/certificates';
 
 import { UseQueryOptions } from '../../types/utils/useQueryOptions';
 import QUERY_KEYS from '../utils/constants/query-keys';
@@ -11,32 +11,31 @@ import getQueryKey from '../utils/get-query-key';
 import getQueryParams from '../utils/getQueryParams';
 import axios from './fetcher';
 
-export type CertificatesParams = {
-  status?: CertificatesStatus[];
-  orderBy?:
-    | 'validToDesc'
-    | 'validToAsc'
-    | 'validFromDesc'
-    | 'validFromAsc'
-    | 'nameAsc'
-    | 'nameDesc';
+export type ProductsParams = {
   name?: string;
+  reference?: string;
+  category?: 'shoe' | 'dressing' | 'linen';
+  orderBy?:
+    | 'referenceAsc'
+    | 'referenceDesc'
+    | 'nameAsc'
+    | 'nameDesc'
+    | 'categoryAsc'
+    | 'categoryDesc';
   page?: number;
   size?: number;
 };
 
-export const getCertificates = async ({
+export const getProducts = async ({
   req,
   res,
   params,
-}: GetRequestWithParams<CertificatesParams> = {}): Promise<GaiaCollection<
-  Certificate[]
-> | null> => {
+}: GetRequestWithParams<ProductsParams> = {}): Promise<GaiaCollection<Certificate[]> | null> => {
   try {
     const axiosInstance = await axios({ req, res });
     const queryParams = getQueryParams(params);
 
-    const { data } = await axiosInstance.get(`/certificates/${queryParams}`);
+    const { data } = await axiosInstance.get(`/products/${queryParams}`);
 
     return data;
   } catch (error) {
@@ -44,14 +43,14 @@ export const getCertificates = async ({
   }
 };
 
-const useGetCertificates = (
-  params?: CertificatesParams,
+const useGetProducts = (
+  params?: ProductsParams,
   options?: UseQueryOptions<GaiaCollection<Certificate[]>>
 ) =>
   useQuery({
-    queryKey: getQueryKey(QUERY_KEYS.CERTIFICATES, queryString.stringify(params ?? {})),
-    queryFn: () => getCertificates({ params }),
+    queryKey: getQueryKey(QUERY_KEYS.PRODUCTS, queryString.stringify(params ?? {})),
+    queryFn: () => getProducts({ params }),
     ...options,
   });
 
-export default useGetCertificates;
+export default useGetProducts;

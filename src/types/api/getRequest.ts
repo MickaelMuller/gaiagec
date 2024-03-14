@@ -1,8 +1,10 @@
 import { GetServerSidePropsContext } from 'next';
 
-type GetRequest = {
+export type GetRequest = {
   req?: GetServerSidePropsContext['req'];
   res?: GetServerSidePropsContext['res'];
 };
 
-export default GetRequest;
+export type GetRequestWithParams<T> = GetRequest & {
+  params?: T;
+};
