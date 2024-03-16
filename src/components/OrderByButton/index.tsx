@@ -1,4 +1,6 @@
-import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
+import { ArrowDown, ArrowUpDown } from 'lucide-react';
+
+import { cn } from '@/lib/utils/cn';
 
 import { Button } from '../ui/button';
 
@@ -12,20 +14,20 @@ type OrderByButtonProps = {
 const OrderByButton = ({ orderBy, orderByName, title, onClick }: OrderByButtonProps) => {
   const orderByAsc = `${orderByName}Asc`;
   const orderByDsc = `${orderByName}Desc`;
-  if (orderBy === orderByAsc) {
-    return (
-      <Button className="pl-0" variant="ghost" onClick={() => onClick(orderByDsc)}>
-        {title}
-        <ArrowDown className="ml-2 h-4 w-4" />
-      </Button>
-    );
-  }
 
-  if (orderBy === orderByDsc) {
+  if (orderBy === orderByAsc || orderBy === orderByDsc) {
     return (
-      <Button className="pl-0" variant="ghost" onClick={() => onClick(orderByAsc)}>
+      <Button
+        className="pl-0"
+        variant="ghost"
+        onClick={() => onClick(orderBy === orderByAsc ? orderByDsc : orderByAsc)}
+      >
         {title}
-        <ArrowUp className="ml-2 h-4 w-4" />
+        <ArrowDown
+          className={cn('ml-2 h-4 w-4', {
+            'rotate-180 transition-all': orderBy === orderByDsc,
+          })}
+        />
       </Button>
     );
   }

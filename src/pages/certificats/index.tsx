@@ -13,6 +13,13 @@ import QUERY_KEYS from '@/lib/utils/constants/query-keys';
 import getQueryKey from '@/lib/utils/get-query-key';
 import { getServerProps } from '@/lib/utils/server-side/get-server-props';
 import { Input } from '@/components/ui/input';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet';
 import useCertificatesColumns from '@/components/Certificates/useCertificatesColumns';
 import { DataTable } from '@/components/DataTable';
 import FacetsFilters from '@/components/FacetsFilters';
@@ -23,6 +30,7 @@ const Certificates = ({ defaultQueryParams }: { defaultQueryParams: Certificates
 
   const [queryParams, setQueryParams] = useState<CertificatesParams>(defaultQueryParams);
   const [search, setSearch] = useState('');
+  const [openCreateSheet, setOpenCreateSheet] = useState(false);
 
   const { data } = useGetCertificates(queryParams, { keepPreviousData: true });
 
@@ -51,7 +59,26 @@ const Certificates = ({ defaultQueryParams }: { defaultQueryParams: Certificates
 
   return (
     <LayoutMenu className="flex flex-col gap-12">
-      <PageHeader ns="certificates" />
+      <PageHeader
+        ns="certificates"
+        actions={[
+          {
+            callback: () => setOpenCreateSheet(true),
+            label: t('create'),
+          },
+        ]}
+      />
+      <Sheet open={openCreateSheet} onOpenChange={setOpenCreateSheet}>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Création de certificat</SheetTitle>
+            <SheetDescription>
+              This action cannot be undone. This will permanently delete your account and remove
+              your data from our servers.
+            </SheetDescription>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
       <div className="flex flex-col gap-5">
         <div className="flex items-center gap-3">
           <Input

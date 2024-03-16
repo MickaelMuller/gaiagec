@@ -20,9 +20,9 @@ export const useCertificatesColumnsDashboard: () => ColumnDef<Certificate>[] = (
 
   return [
     {
-      accessorKey: 'name',
-      header: t('table.name'),
-      cell: ({ row }) => renderCell(row.original.name),
+      accessorKey: 'reference',
+      header: t('table.reference'),
+      cell: ({ row }) => renderCell(row.original.reference),
     },
     {
       accessorKey: 'supplierName',

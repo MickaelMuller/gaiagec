@@ -9,7 +9,6 @@ export type Certificate = {
   fileLength: number;
   fileName: string;
   fileUri: string;
-  name: string;
   reference: string;
   status: string;
   supplierId: string;

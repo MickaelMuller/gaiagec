@@ -53,8 +53,8 @@
     "expire_soon": "Expire bientôt",
     "valid": "Valide", 
     "reset_filter_one": "Réinitialiser le filtre",
-    "reset_filter_other": "Réinitialiser les filtres"
-
+    "reset_filter_other": "Réinitialiser les filtres",
+    "reference": "Référence"
   },
 
   "login": {

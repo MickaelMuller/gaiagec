@@ -27,18 +27,18 @@ const useCertificatesColumns: (props: UseCertificatesColumns) => ColumnDef<Certi
 
   return [
     {
-      accessorKey: 'name',
+      accessorKey: 'reference',
       header: () => (
         <OrderByButton
-          title={t('table.name')}
-          orderByName="name"
+          title={t('table.reference')}
+          orderByName="reference"
           orderBy={queryParams?.orderBy ?? ''}
           onClick={(order) =>
             onChangeQueryParams({ ...queryParams, orderBy: order as CertificatesParams['orderBy'] })
           }
         />
       ),
-      cell: ({ row }) => renderCell(row.original.name),
+      cell: ({ row }) => renderCell(row.original.reference),
     },
     {
       accessorKey: 'validTo',
