@@ -25,7 +25,7 @@ const OrderByButton = ({ orderBy, orderByName, title, onClick }: OrderByButtonPr
         {title}
         <ArrowDown
           className={cn('ml-2 h-4 w-4', {
-            'rotate-180 transition-all': orderBy === orderByDsc,
+            '-rotate-180': orderBy === orderByDsc,
           })}
         />
       </Button>

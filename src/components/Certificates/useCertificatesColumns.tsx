@@ -60,7 +60,7 @@ const useCertificatesColumns: (props: UseCertificatesColumns) => ColumnDef<Certi
       cell: ({ row }) => renderCell(row.original.supplierName),
     },
     {
-      accessorKey: 'validTo',
+      accessorKey: 'origin',
       header: t('table.status'),
       cell: ({ row }) => {
         const certificates = row.original as Certificate;

@@ -78,8 +78,16 @@
       "title": "Gaiagec - Certificats",
       "description": "Certificats page"
     },
-    "title": "Certificats"
-    
+    "title": "Certificats",
+    "create": {
+      "title": "Créer un certificat",
+      "reference": "Référence",
+      "supplier": "Fournisseur",
+      "certificateType": "Type de certificat",
+      "valid_from": "Date de validité",
+      "valid_to": "Valide jusqu'à",
+      "submit": "Créer"
+    }
   },
 
   "supplier": {

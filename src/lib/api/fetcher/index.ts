@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from 'next';
 import { redirect } from 'next/navigation';
-import baseAxios, { AxiosInstance, AxiosRequestConfig, HeadersDefaults } from 'axios';
+import baseAxios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 
@@ -13,7 +13,7 @@ import refreshTokenRequest from './refreshToken';
 type FetcherProps = AxiosRequestConfig & {
   req?: GetServerSidePropsContext['req'];
   res?: GetServerSidePropsContext['res'];
-  headers?: HeadersDefaults;
+  headers?: any;
 };
 
 let refreshTokenFunction: Promise<RefreshTokenResult> | undefined;

@@ -7,7 +7,7 @@ const URLS = {
   DASHBOARD: '/dashboard',
   PRODUCTS: '/produits',
   PACKAGING: '/emballages',
-  CERTIFICATES: '/certificats',
+  CERTIFICATES: '/certificates',
   SUPPLIERS: '/fournisseurs',
   ANALYTICS: '/analytics',
 };

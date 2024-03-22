@@ -49,7 +49,7 @@ const LoginPage = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
             <FormField
               control={form.control}
-              name={'login'}
+              name="login"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -61,7 +61,7 @@ const LoginPage = () => {
             />
             <FormField
               control={form.control}
-              name={'password'}
+              name="password"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
