@@ -1,8 +1,10 @@
-import { useMutation, UseMutationOptions } from '@tanstack/react-query';
+import { useMutation, UseMutationOptions, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import * as z from 'zod';
 
 import certificateSchema from '../schemas/certificateSchema';
+import QUERY_KEYS from '../utils/constants/query-keys';
+import getQueryKey from '../utils/get-query-key';
 import axios from './fetcher';
 
 type CertificatesInputs = z.infer<typeof certificateSchema>;
@@ -20,10 +22,18 @@ export const createCertificates = async (inputs: CertificatesInputs) => {
 
 const useCreateCertificates = (
   options?: UseMutationOptions<CertificatesInputs, AxiosError, CertificatesInputs>
-) =>
-  useMutation({
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationFn: (inputs) => createCertificates(inputs),
     ...options,
+    onSuccess: (...props) => {
+      queryClient.invalidateQueries(getQueryKey(QUERY_KEYS.CERTIFICATES));
+
+      options?.onSuccess?.(...props);
+    },
   });
+};
 
 export default useCreateCertificates;

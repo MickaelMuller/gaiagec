@@ -43,7 +43,11 @@ const Dashboard = () => {
 
   const { data: kpis } = useGetKpisDashboard();
   const { data: certificatesDistribution } = useGetCertificatesDistribution();
-  const { data: certificates } = useGetCertificates({ status: certificatesStatusQuery });
+  const { data: certificates } = useGetCertificates({
+    page: 1,
+    size: 10,
+    status: certificatesStatusQuery,
+  });
 
   const formatedDataPie = certificatesDistribution?.distribution?.map((item) => ({
     id: t(`kpis.${item.status}`),
@@ -131,6 +135,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
           req: context.req,
           res: context.res,
           params: {
+            page: 1,
+            size: 10,
             status: certificatesStatusQuery,
           },
         }),

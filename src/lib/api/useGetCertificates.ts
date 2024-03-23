@@ -20,9 +20,9 @@ export type CertificatesParams = {
     | 'validFromAsc'
     | 'nameAsc'
     | 'nameDesc';
-  name?: string;
-  page?: number;
-  size?: number;
+  reference?: string;
+  page: number;
+  size: number;
 };
 
 export const getCertificates = async ({

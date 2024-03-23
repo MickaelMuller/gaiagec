@@ -1,7 +1,7 @@
 {
   "gaiagec": "Gaiagec",
   "gaiagec_explanations": "Chez Gaia Solutions, nous croyons fermement à la Responsabilité Sociale des Entreprises et nous sommes à l'avant-garde des défis posés par la loi AGEC. C’est pourquoi nous avons conçu Gaiagec.",
-  
+  "download": "Télécharger",
   "navbar": {
     "switch_brand" : "Changer de marque", 
     "logout": "Déconnexion"
@@ -54,7 +54,9 @@
     "valid": "Valide", 
     "reset_filter_one": "Réinitialiser le filtre",
     "reset_filter_other": "Réinitialiser les filtres",
-    "reference": "Référence"
+    "reference": "Référence", 
+    "row_per_page": "Elements par page", 
+    "off": "sur"
   },
 
   "login": {

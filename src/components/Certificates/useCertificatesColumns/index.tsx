@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { Eye, EyeOff, GripVertical } from 'lucide-react';
+import { Eye, EyeOff, FileDown } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 
 import { Certificate } from '@/types/certificates';
@@ -8,9 +8,10 @@ import diffInDaysFromNow from '@/lib/utils/date/diffInDaysFromNow';
 import { fromISOToReadableDate } from '@/lib/utils/date/format';
 import { DAYS } from '@/lib/utils/time';
 import Text from '@/components/ui/text';
+import ActionsTable from '@/components/ActionsTable';
 
-import OrderByButton from '../OrderByButton';
-import { Badge } from '../ui/badge';
+import OrderByButton from '../../OrderByButton';
+import { Badge } from '../../ui/badge';
 
 type UseCertificatesColumns = {
   onChangeQueryParams: (newQueryParams: CertificatesParams) => void;
@@ -97,9 +98,19 @@ const useCertificatesColumns: (props: UseCertificatesColumns) => ColumnDef<Certi
 
     {
       id: 'actions',
-      cell: () => (
+      cell: ({ row }) => (
         <div className="flex gap-2">
-          <GripVertical />
+          <ActionsTable
+            actions={[
+              {
+                label: t('download'),
+                callback: () => {
+                  window.open(row?.original?.fileUri, '_blank', 'noopener,noreferrer');
+                },
+                icon: FileDown,
+              },
+            ]}
+          />
         </div>
       ),
     },
