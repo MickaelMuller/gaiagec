@@ -105,9 +105,10 @@ const useCertificatesColumns: (props: UseCertificatesColumns) => ColumnDef<Certi
               {
                 label: t('download'),
                 callback: () => {
-                  window.open(row?.original?.fileUri, '_blank', 'noopener,noreferrer');
+                  window.open(row?.original?.file?.uri, '_blank', 'noopener,noreferrer');
                 },
                 icon: FileDown,
+                disabled: !row?.original?.file?.uri,
               },
             ]}
           />

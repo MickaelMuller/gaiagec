@@ -12,7 +12,7 @@ import Text from '../ui/text';
 const ActionsTable = ({
   actions,
 }: {
-  actions: { label: string; callback: () => void; icon: LucideIcon }[];
+  actions: { label: string; callback: () => void; icon: LucideIcon; disabled?: boolean }[];
 }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>
@@ -22,8 +22,13 @@ const ActionsTable = ({
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end" className="w-[160px]">
-      {actions.map(({ label, callback, icon: Icon }, index) => (
-        <DropdownMenuItem className="space-x-4" key={`${label}_${index}`} onClick={callback}>
+      {actions.map(({ label, callback, icon: Icon, disabled }, index) => (
+        <DropdownMenuItem
+          disabled={disabled}
+          className="space-x-4"
+          key={`${label}_${index}`}
+          onClick={callback}
+        >
           <Icon />
           <Text>{label}</Text>
         </DropdownMenuItem>

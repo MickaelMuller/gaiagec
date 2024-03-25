@@ -5,10 +5,6 @@ export type CertificatesDistribution = {
 
 export type Certificate = {
   brandId: string;
-  fileContentType: string;
-  fileLength: number;
-  fileName: string;
-  fileUri: string;
   reference: string;
   status: string;
   supplierId: string;
@@ -17,6 +13,12 @@ export type Certificate = {
   validFrom: string;
   validTo: string;
   visibility: string;
+  file: {
+    contentType: string;
+    length: number;
+    name: string;
+    uri: string;
+  };
 };
 
 export type CertificatesStatus = 'expired' | 'expireSoon' | 'valid';

@@ -55,13 +55,19 @@ export const useCertificatesColumnsDashboard: () => ColumnDef<Certificate>[] = (
 
         const displayMailIcon = diff <= DAYS(90).inDays;
 
+        const handleOnClick = () => {
+          window.open(row.original?.file?.uri, '_blank');
+        };
+
         return (
-          <div className="flex gap-2">
-            <a href={certificates.fileUri} target="_blank" download>
-              <FileDown className={className} />
-            </a>
+          <button
+            className="flex gap-2"
+            disabled={!row?.original?.file?.uri}
+            onClick={handleOnClick}
+          >
+            <FileDown className={className} />
             {displayMailIcon && <Mail className={className} />}
-          </div>
+          </button>
         );
       },
     },
