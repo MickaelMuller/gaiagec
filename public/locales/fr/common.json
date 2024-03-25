@@ -39,7 +39,10 @@
       "title": "Gaiagec - Emballages",
       "description": "Emballage page"
     },
-    "title": "Emballages"
+    "title": "Emballages",
+    "create": {
+      "title":"Créer un emballage"
+    }
   },
 
   "table": {
@@ -110,7 +113,30 @@
   "form": {
     "email": "Email",
     "password": "Mot de passe",
-    "login": "Connexion"
+    "login": "Connexion", 
+    "reference": "Référence",
+    "name": "Nom", 
+    "additional_information": "Informations complémentaires",
+    "description": "Description",
+    "type": "Type",
+    "recyclability": "Recyclabilité",
+    "veryHighConcernSubstanceNames": "Noms des Substances dangereuses ou très préoccupantes",
+    "veryHighConcernSubstanceStatus": "Statut des substances dangereuses ou très préoccupantes",
+    "recycledMaterialRatio": "Taux de matière recyclée en %",
+    "status": "Statuts",
+    "names": "Noms",
+    "options": {
+      "other": "Autre", 
+      "eCommerce": "E-commerce",
+      "shop": "Magasin",
+      "none": "Aucun",
+      "presence": "Présence",
+      "scan": "Voir scan4Chem", 
+      "mostly": "Majoritairement recyclable",
+      "fully": "Entièrement recyclable",
+      "sameNature": "Emballage de même nature",
+      "reusable": "Réutilisable"
+    }
   },
 
   "kpis": {
