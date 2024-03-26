@@ -7,7 +7,10 @@ import queryString from 'query-string';
 import { CertificatesStatus } from '@/types/certificates';
 import { CertificatStatus } from '@/types/certificatesDistribution';
 import { DataItem } from '@/types/dashboardPie';
-import useGetCertificates, { getCertificates } from '@/lib/api/useGetCertificates';
+import useGetCertificates, {
+  CertificatesParams,
+  getCertificates,
+} from '@/lib/api/useGetCertificates';
 import useGetCertificatesDistribution, {
   getCertificatesDistribution,
 } from '@/lib/api/useGetCertificatesDistribution';
@@ -37,17 +40,17 @@ const getGraphColor = (status: CertificatStatus) => {
 
 const certificatesStatusQuery: CertificatesStatus[] = ['expired', 'expireSoon'];
 
-const Dashboard = () => {
+const Dashboard = ({
+  certificatesDefaultParams,
+}: {
+  certificatesDefaultParams: CertificatesParams;
+}) => {
   const { t } = useTranslation();
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const { data: kpis } = useGetKpisDashboard();
   const { data: certificatesDistribution } = useGetCertificatesDistribution();
-  const { data: certificates } = useGetCertificates({
-    page: 1,
-    size: 10,
-    status: certificatesStatusQuery,
-  });
+  const { data: certificates } = useGetCertificates(certificatesDefaultParams);
 
   const formatedDataPie = certificatesDistribution?.distribution?.map((item) => ({
     id: t(`kpis.${item.status}`),
@@ -116,6 +119,13 @@ const Dashboard = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const certificatesDefaultParams: CertificatesParams = {
+    page: 1,
+    size: 6,
+    status: certificatesStatusQuery,
+    orderBy: 'validToAsc',
+  };
+
   const queries = [
     {
       queryKey: getQueryKey(QUERY_KEYS.KPIS_DASHBOARD),
@@ -128,17 +138,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     {
       queryKey: getQueryKey(
         QUERY_KEYS.CERTIFICATES,
-        queryString.stringify({ status: certificatesStatusQuery })
+        queryString.stringify(certificatesDefaultParams)
       ),
       queryFn: () =>
         getCertificates({
           req: context.req,
           res: context.res,
-          params: {
-            page: 1,
-            size: 10,
-            status: certificatesStatusQuery,
-          },
+          params: certificatesDefaultParams,
         }),
     },
   ];
@@ -146,7 +152,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { serverProps } = await getServerProps({ context, queries });
 
   return {
-    props: { ...serverProps },
+    props: { ...serverProps, certificatesDefaultParams },
   };
 };
 

@@ -47,10 +47,12 @@ export const useCertificatesColumnsDashboard: () => ColumnDef<Certificate>[] = (
         const certificateExpireSoon = diff <= DAYS(90).inDays && diff >= 0;
         const certificateIsValid = diff >= DAYS(90).inDays;
 
-        const className = cn('cursor-pointer', {
+        const IconClassName = cn({
           'text-error': certificateIsExpired,
           'text-warning': certificateExpireSoon,
           'text-success': certificateIsValid,
+          'text-gray-400': !row?.original?.file?.uri,
+          'cursor-pointer': row?.original?.file?.uri,
         });
 
         const displayMailIcon = diff <= DAYS(90).inDays;
@@ -61,12 +63,12 @@ export const useCertificatesColumnsDashboard: () => ColumnDef<Certificate>[] = (
 
         return (
           <button
-            className="flex gap-2"
+            className="flex gap-2 "
             disabled={!row?.original?.file?.uri}
             onClick={handleOnClick}
           >
-            <FileDown className={className} />
-            {displayMailIcon && <Mail className={className} />}
+            <FileDown className={IconClassName} />
+            {displayMailIcon && <Mail className="text-slate-700" />}
           </button>
         );
       },

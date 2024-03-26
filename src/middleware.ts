@@ -13,6 +13,9 @@ export async function middleware(req: NextRequest) {
 
   const isAuthenticatedRoute = AUTHENTICATED_ROUTES?.some((route) => nextUrl.startsWith(route));
 
+  // eslint-disable-next-line no-console
+  console.log('MIDDLEWARE', { hasUserTokens, isAuthenticatedRoute });
+
   if (isAuthenticatedRoute && !hasUserTokens) {
     return NextResponse.redirect(new URL(URLS.LOGIN, req.url));
   }
