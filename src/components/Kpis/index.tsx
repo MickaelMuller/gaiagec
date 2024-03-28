@@ -18,7 +18,7 @@ const Kpi = ({ kpis }: KpisProps) => {
   const enrichmentKpis = getEnrichmentKpis(kpis);
 
   return (
-    <div className="flex flex-row justify-between gap-7 overflow-x-auto whitespace-nowrap pb-4">
+    <div className="flex flex-row justify-start gap-7 overflow-x-auto whitespace-nowrap pb-4">
       {enrichmentKpis?.map((kpi) => {
         const label = t(`kpis.${kpi.key}`);
         const Icon = kpi?.icon;

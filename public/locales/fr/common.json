@@ -59,7 +59,15 @@
     "reset_filter_other": "Réinitialiser les filtres",
     "reference": "Référence", 
     "row_per_page": "Elements par page", 
-    "off": "sur"
+    "off": "sur",
+    "type": "Type", 
+    "contact": "Contact",
+    "country": "Pays",
+    "last_connexion": "Dernière connexion",
+    "agent": "Agent",
+    "weaver": "Tisseur",
+    "dyer": "Teinturier", 
+    "contact_email": "Email de contact"
   },
 
   "login": {
@@ -95,18 +103,14 @@
     }
   },
 
-  "supplier": {
+  "suppliers": {
     "meta": {
       "title": "Gaiagec - Fournisseurs",
       "description": "Fournisseurs page"
     },
     "title": "Fournisseurs",
-    "table": {
-      "title": "Détails des certificats",
-      "name": "Nom",
-      "supplier": "Fournisseur", 
-      "expiration_date": "Date d'expiration", 
-      "empty": "Aucun certificat exipré"
+    "create": {
+      "title": "Créer un fournisseur"
     }
   },
 
@@ -125,17 +129,39 @@
     "recycledMaterialRatio": "Taux de matière recyclée en %",
     "status": "Statuts",
     "names": "Noms",
+    "contact_email": "Email de contact",
+    "contact_phone": "Téléphone de contact",
+    "contact_first_name": "Prénom de contact",
+    "contact_last_name": "Nom de contact",
+    "address": "Adresse",
+    "city": "Ville",
+    "zip_code": "Code postal",
+    "country": "Pays",
     "options": {
       "other": "Autre", 
       "eCommerce": "E-commerce",
-      "shop": "Magasin",
+      "shop": "En magasin",
       "none": "Aucun",
       "presence": "Présence",
       "scan": "Voir scan4Chem", 
       "mostly": "Majoritairement recyclable",
       "fully": "Entièrement recyclable",
       "sameNature": "Emballage de même nature",
-      "reusable": "Réutilisable"
+      "reusable": "Réutilisable", 
+      "agent": "Agent",
+      "weaver": "Tisseur",
+      "dyer": "Teinturier"
+    },
+    "placeholder": {
+      "email": "john.doe@mail.com",
+      "first_name": "John",
+      "last_name": "Doe",
+      "phone": "06 12 34 56 78",
+      "address": "1 rue de la paix",
+      "city": "Paris",
+      "zip_code": "75000",
+      "country": "France",
+      "reference": "REF123"
     }
   },
 

@@ -33,7 +33,7 @@ type CreateCertificateSheetProps = {
 
 const CreateCertificateSheet = ({ open, setOpen, onSuccess }: CreateCertificateSheetProps) => {
   const { t } = useTranslation();
-  const { data: supplier } = useGetSuppliers();
+  const { data: supplier } = useGetSuppliers({ page: 1, size: 100 });
 
   const form = useForm<z.infer<typeof certificateSchema>>({
     resolver: zodResolver(certificateSchema),

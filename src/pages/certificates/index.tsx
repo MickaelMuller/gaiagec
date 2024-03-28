@@ -20,11 +20,7 @@ import FacetsFilters from '@/components/FacetsFilters';
 import PageHeader from '@/components/PageHeader';
 import Pagination from '@/components/Pagination';
 
-const statusOptions = [
-  { value: 'expired', label: 'Expiré' },
-  { value: 'expireSoon', label: 'Expire bienôt' },
-  { value: 'valid', label: 'Valide' },
-];
+const statusOptions = ['expired', 'expireSoon', 'valid'];
 
 const Certificates = ({ defaultQueryParams }: { defaultQueryParams: CertificatesParams }) => {
   const { t } = useTranslation();

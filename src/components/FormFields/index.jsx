@@ -1,4 +1,5 @@
-import { useTranslation } from 'next-i18next';
+import countries from 'i18n-iso-countries';
+import { i18n, useTranslation } from 'next-i18next';
 
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
@@ -28,6 +29,23 @@ const FormFields = ({ input, form }) => {
               {input.options.map((option) => (
                 <SelectItem key={option} value={option}>
                   {t(`form.options.${option}`)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        );
+      case 'countries':
+        return (
+          <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <FormControl>
+              <SelectTrigger>
+                <SelectValue placeholder={t(input.placeholder)} />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent>
+              {input.options.map((option) => (
+                <SelectItem key={option} value={option}>
+                  {countries.getName(option, i18n.language)}
                 </SelectItem>
               ))}
             </SelectContent>

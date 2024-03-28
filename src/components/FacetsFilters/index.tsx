@@ -2,6 +2,7 @@ import { PlusCircledIcon } from '@radix-ui/react-icons';
 import { CheckIcon } from 'lucide-react';
 import { useTranslation } from 'next-i18next';
 
+import camelToSnakeCase from '@/lib/utils/camelToSnakeCase';
 import { cn } from '@/lib/utils/cn';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -19,7 +20,7 @@ import { Separator } from '@/components/ui/separator';
 type FacetsFiltersProps<Filters> = {
   title: string;
   filters: Filters;
-  options: { label: string; value: string }[];
+  options: string[];
   onSelect: (value: Filters) => void;
   onReset: () => void;
 };
@@ -53,14 +54,14 @@ function FacetsFilters<Filters>({
                   </Badge>
                 ) : (
                   options
-                    .filter((option) => selectedValues.has(option.value))
+                    .filter((option) => selectedValues.has(option))
                     .map((option) => (
                       <Badge
                         variant="secondary"
-                        key={option.value}
+                        key={option}
                         className="rounded-sm px-1 font-normal"
                       >
-                        {option.label}
+                        {t(`table.${camelToSnakeCase(option)}`)}
                       </Badge>
                     ))
                 )}
@@ -75,15 +76,15 @@ function FacetsFilters<Filters>({
           <CommandList>
             <CommandGroup>
               {options.map((option) => {
-                const isSelected = selectedValues.has(option.value);
+                const isSelected = selectedValues.has(option);
                 return (
                   <CommandItem
-                    key={option.value}
+                    key={option}
                     onSelect={() => {
                       if (isSelected) {
-                        selectedValues.delete(option.value);
+                        selectedValues.delete(option);
                       } else {
-                        selectedValues.add(option.value);
+                        selectedValues.add(option);
                       }
                       const filterValues = Array.from(selectedValues);
                       onSelect(filterValues as Filters);
@@ -100,7 +101,7 @@ function FacetsFilters<Filters>({
                       <CheckIcon className={cn('h-4 w-4')} />
                     </div>
 
-                    <span>{option.label}</span>
+                    <span>{t(`table.${camelToSnakeCase(option)}`)}</span>
                   </CommandItem>
                 );
               })}
